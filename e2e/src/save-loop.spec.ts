@@ -145,6 +145,53 @@ test('renders the switched locale inside a memoized concise component', async ({
   expect(loadCount).toBe(0);
 });
 
+test('renders a component called as a function a growing number of times', async ({
+  page,
+}) => {
+  await writeFile(
+    CART_PATH,
+    [
+      "import { useState } from 'react';",
+      "import { t } from 'yapyak';",
+      '',
+      'const Row = ({ label }: { label: string }) => <li key={label}>{label}</li>;',
+      '',
+      'export function Cart() {',
+      "  const [items, setItems] = useState(['Hello']);",
+      '  return (',
+      '    <ul>',
+      '      {items.map((label) => Row({ label }))}',
+      '      <button onClick={() => setItems([...items, \'World\'])} type="button">',
+      "        {t('Settings')}",
+      '      </button>',
+      '    </ul>',
+      '  );',
+      '}',
+      '',
+    ].join('\n'),
+  );
+  const rows = page.getByRole('listitem');
+
+  await expect(rows).toHaveCount(1);
+  await page
+    .getByRole('button', {
+      name: 'Settings',
+    })
+    .click();
+  await expect(rows).toHaveCount(2);
+  await page
+    .getByRole('button', {
+      name: 'sv',
+    })
+    .click();
+  await expect(
+    page.getByRole('button', {
+      name: 'Laddar...',
+    }),
+  ).toBeVisible();
+  await expect(rows).toHaveCount(2);
+});
+
 test.fail(
   'preserves an uncontrolled input value when the source is saved',
   async ({ page }) => {
