@@ -21,7 +21,7 @@ export type Project = {
 
 export type ResolveIdFn = (base: string, id: string) => string;
 
-export const MINIMUM_YAPYAK_VERSION = '0.0.15';
+export const MINIMUM_YAPYAK_VERSION = '0.0.16';
 
 const CONFIG_FILES = [
   'yapyak.config.ts',
