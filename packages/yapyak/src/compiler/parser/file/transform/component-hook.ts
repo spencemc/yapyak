@@ -8,7 +8,7 @@ import type {
   Node,
 } from 'oxc-parser';
 import type { ComponentHook, Fragment } from '../../../../processor';
-import type { BindingTable } from '../../binding';
+import type { Binding, BindingTable } from '../../binding';
 import type { SourceFile } from '../../source-file';
 import type { ParsedCallSite } from '../extract';
 import type { IdentifierNode } from './reference';
@@ -104,7 +104,7 @@ export function collectComponentHosts(
         registerHost(resolveHost(reference, componentHook, canHoldJsx));
       }
     }
-    hosts.push(...hostsByFunction.values());
+    hosts.push(...omitCalledHosts(hostsByFunction, sourceFile, componentHook));
   }
   return hosts;
 }
@@ -141,15 +141,15 @@ function isHostFunction(
   canHoldJsx: boolean,
   hasYapyakRead: boolean,
 ): boolean {
-  const { evidencePattern, namePattern } = componentHook;
+  const { namePattern } = componentHook;
   if (host.type === 'FunctionDeclaration') {
     if (host.id) {
       return (
         isEligibleName(host.id.name, componentHook, canHoldJsx) &&
-        (hasYapyakRead || hasComponentEvidence(host, evidencePattern))
+        (hasYapyakRead || hasComponentEvidence(host, componentHook))
       );
     }
-    return canHoldJsx && hasComponentEvidence(host, evidencePattern);
+    return canHoldJsx && hasComponentEvidence(host, componentHook);
   }
   if (isCurried(host)) {
     return false;
@@ -158,12 +158,12 @@ function isHostFunction(
   if (name !== undefined) {
     return (
       isEligibleName(name, componentHook, canHoldJsx) &&
-      (hasYapyakRead || hasComponentEvidence(host, evidencePattern))
+      (hasYapyakRead || hasComponentEvidence(host, componentHook))
     );
   }
   return (
     canHoldJsx &&
-    hasComponentEvidence(host, evidencePattern) &&
+    hasComponentEvidence(host, componentHook) &&
     hasComponentPosition(host, namePattern)
   );
 }
@@ -213,6 +213,69 @@ function collectFormatReferences(
   return references;
 }
 
+function omitCalledHosts(
+  hostsByFunction: Map<HostFunction, ComponentHost>,
+  sourceFile: SourceFile,
+  componentHook: ComponentHook,
+): ComponentHost[] {
+  const trackedNames: string[] = [];
+  for (const host of hostsByFunction.keys()) {
+    const name = findDirectName(host);
+    if (name === undefined || !isComponentName(name, componentHook)) {
+      continue;
+    }
+    trackedNames.push(name);
+  }
+  if (trackedNames.length === 0) {
+    return [
+      ...hostsByFunction.values(),
+    ];
+  }
+  const bindings = resolveBindings(sourceFile, FORMAT_EXPORT, {
+    trackedNames,
+  });
+  const hostsByBinding = new Map<Binding, HostFunction>();
+  for (const host of hostsByFunction.keys()) {
+    const name = findDirectName(host);
+    if (name === undefined) {
+      continue;
+    }
+    const binding = bindings.find(name, host);
+    if (binding === undefined) {
+      continue;
+    }
+    hostsByBinding.set(binding, host);
+  }
+  const calledHosts = new Set<HostFunction>();
+  const visit = (node: Node): void => {
+    if (node.type === 'CallExpression') {
+      for (const identifierNode of collectCalledIdentifiers(node)) {
+        const binding = bindings.find(identifierNode.name, identifierNode);
+        if (binding === undefined) {
+          continue;
+        }
+        const host = hostsByBinding.get(binding);
+        if (host === undefined) {
+          continue;
+        }
+        calledHosts.add(host);
+      }
+    }
+    for (const child of collectChildren(node)) {
+      visit(child);
+    }
+  };
+  visit(sourceFile.program);
+  const hosts: ComponentHost[] = [];
+  for (const [host, componentHost] of hostsByFunction) {
+    if (calledHosts.has(host)) {
+      continue;
+    }
+    hosts.push(componentHost);
+  }
+  return hosts;
+}
+
 function emitHookInvocation(
   host: ComponentHost,
   invocation: string,
@@ -243,7 +306,7 @@ function isEligibleName(
 
 function hasComponentEvidence(
   host: HostFunction,
-  evidencePattern: RegExp,
+  componentHook: ComponentHook,
 ): boolean {
   const body = host.body;
   let found = false;
@@ -257,7 +320,8 @@ function hasComponentEvidence(
     }
     if (
       node.type === 'CallExpression' &&
-      isEvidenceCall(node, evidencePattern)
+      (isEvidenceCall(node, componentHook.evidencePattern) ||
+        isComponentCall(node, componentHook))
     ) {
       found = true;
       return;
@@ -384,6 +448,26 @@ function isFormatReference(
   return bindings.find(node.name, node)?.kind === 'direct';
 }
 
+function isComponentName(name: string, componentHook: ComponentHook): boolean {
+  return (
+    componentHook.namePattern.test(name) &&
+    !componentHook.evidencePattern.test(name)
+  );
+}
+
+function collectCalledIdentifiers(node: CallExpression): IdentifierNode[] {
+  const callee = node.callee;
+  if (callee.type === 'Identifier') {
+    return [
+      callee,
+    ];
+  }
+  if (!isCallbackCall(callee)) {
+    return [];
+  }
+  return node.arguments.filter((argument) => argument.type === 'Identifier');
+}
+
 function isEvidenceCall(
   node: CallExpression,
   evidencePattern: RegExp,
@@ -400,4 +484,36 @@ function isEvidenceCall(
     return evidencePattern.test(callee.property.name);
   }
   return false;
+}
+
+function isComponentCall(
+  node: CallExpression,
+  componentHook: ComponentHook,
+): boolean {
+  return collectCalledIdentifiers(node).some((identifierNode) =>
+    isComponentName(identifierNode.name, componentHook),
+  );
+}
+
+const CALLBACK_METHOD_NAMES = new Set([
+  'flatMap',
+  'map',
+]);
+
+function isCallbackCall(expression: Expression): boolean {
+  if (
+    expression.type !== 'MemberExpression' ||
+    expression.computed ||
+    expression.property.type !== 'Identifier'
+  ) {
+    return false;
+  }
+  if (CALLBACK_METHOD_NAMES.has(expression.property.name)) {
+    return true;
+  }
+  return (
+    expression.property.name === 'from' &&
+    expression.object.type === 'Identifier' &&
+    expression.object.name === 'Array'
+  );
 }

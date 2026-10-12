@@ -410,4 +410,38 @@ describe('resolveBindings', () => {
       ),
     ).toBe('direct');
   });
+
+  it('resolves a tracked name to its declaration', () => {
+    const sourceFile = parseSource(
+      'const Row = () => null;\nexport function List() { return Row(); }',
+    );
+    const table = resolveBindings(sourceFile, 't', {
+      trackedNames: [
+        'Row',
+      ],
+    });
+    const call = findFirstCallExpression(sourceFile.program, 'Row');
+    if (!call) {
+      throw new Error('test setup expects a `Row` call');
+    }
+
+    expect(table.find('Row', call)).toBe(table.root.bindings.get('Row'));
+  });
+
+  it('resolves a tracked name to the parameter that shadows it', () => {
+    const sourceFile = parseSource(
+      'const Row = () => null;\nexport function List({ Row }) { return Row(); }',
+    );
+    const table = resolveBindings(sourceFile, 't', {
+      trackedNames: [
+        'Row',
+      ],
+    });
+    const call = findFirstCallExpression(sourceFile.program, 'Row');
+    if (!call) {
+      throw new Error('test setup expects a `Row` call');
+    }
+
+    expect(table.find('Row', call)).not.toBe(table.root.bindings.get('Row'));
+  });
 });

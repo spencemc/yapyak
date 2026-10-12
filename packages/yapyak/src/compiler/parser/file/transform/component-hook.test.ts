@@ -336,6 +336,57 @@ describe('collectComponentHosts', () => {
     expect(code).toContain('usePrice() {useYapyak();');
   });
 
+  it('collects a component that calls a component as a function', () => {
+    const code = runInject(
+      [
+        "import { t } from 'yapyak';",
+        "const Row = ({ label }) => <li>{t('Hello')}</li>;",
+        'export const List = ({ items }) => items.map(Row);',
+      ].join('\n'),
+    );
+    expect(code).toContain('({ items }) => {useYapyak();return(');
+    expect(code).not.toContain('({ label }) => {useYapyak();');
+  });
+
+  it('collects a component the file wraps in a higher-order function', () => {
+    const code = runInject(
+      [
+        "import { t } from 'yapyak';",
+        "const Row = ({ label }) => <li>{t('Hello')}</li>;",
+        'export const Guarded = withAuth(Row);',
+      ].join('\n'),
+    );
+    expect(code).toContain('({ label }) => {useYapyak();');
+  });
+
+  it('collects a component when the call targets a parameter of the same name', () => {
+    const code = runInject(
+      [
+        "import { t } from 'yapyak';",
+        "const Row = ({ label }) => <li>{t('Hello')}</li>;",
+        'export function List({ Row }) {',
+        "  return <ul>{Row({ label: t('Save') })}</ul>;",
+        '}',
+      ].join('\n'),
+    );
+    expect(code).toContain('({ label }) => {useYapyak();');
+    expect(code).toContain('List({ Row }) {useYapyak();');
+  });
+
+  it('collects a hook the file calls as a function', () => {
+    const code = runInject(
+      [
+        "import { t } from 'yapyak';",
+        "const useGreeting = () => t('Hello');",
+        'export function Header() {',
+        '  return <h1>{useGreeting()}</h1>;',
+        '}',
+      ].join('\n'),
+    );
+    expect(code).toContain('() => {useYapyak();return(t(');
+    expect(code).toContain('Header() {useYapyak();');
+  });
+
   it('skips a callback without component evidence', () => {
     const code = runInject(
       [
@@ -504,6 +555,46 @@ describe('collectComponentHosts', () => {
       ].join('\n'),
     );
     expect(code).not.toContain('useYapyak();');
+  });
+
+  it('skips a component the file calls as a function', () => {
+    const code = runInject(
+      [
+        "import { t } from 'yapyak';",
+        "const Row = ({ label }) => <li>{t('Hello')}</li>;",
+        'export function List({ items }) {',
+        '  return <ul>{items.map((label) => Row({ label }))}</ul>;',
+        '}',
+      ].join('\n'),
+    );
+    expect(code).not.toContain('({ label }) => {useYapyak();');
+    expect(code).toContain('List({ items }) {useYapyak();');
+  });
+
+  it('skips a component the file passes to `map`', () => {
+    const code = runInject(
+      [
+        "import { t } from 'yapyak';",
+        "const Row = ({ label }) => <li>{t('Hello')}</li>;",
+        'export function List({ items }) {',
+        '  return <ul>{items.map(Row)}</ul>;',
+        '}',
+      ].join('\n'),
+    );
+    expect(code).not.toContain('({ label }) => {useYapyak();');
+  });
+
+  it('skips a component the file passes to `Array.from`', () => {
+    const code = runInject(
+      [
+        "import { t } from 'yapyak';",
+        "const Row = ({ label }) => <li>{t('Hello')}</li>;",
+        'export function List({ items }) {',
+        '  return <ul>{Array.from(items, Row)}</ul>;',
+        '}',
+      ].join('\n'),
+    );
+    expect(code).not.toContain('({ label }) => {useYapyak();');
   });
 
   it('blocks collection when the eligibility directive is missing from the prologue', () => {

@@ -29,6 +29,7 @@ export type BindingTable = {
 
 export type ResolveBindingsOptions = {
   ambientParent?: Scope;
+  trackedNames?: string[];
 };
 
 type ImportData = {
@@ -80,6 +81,7 @@ export function resolveBindings(
   const shadowableNames = new Set<string>([
     ...imports.directLocals,
     ...imports.namespaceLocals,
+    ...(options?.trackedNames ?? []),
   ]);
   for (
     let ambientScope = options?.ambientParent;
