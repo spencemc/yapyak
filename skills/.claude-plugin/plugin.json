@@ -1,0 +1,19 @@
+{
+  "author": {
+    "name": "Joakim Uhrwing"
+  },
+  "description": "Agent skill for yapyak.",
+  "homepage": "https://yapyak.dev",
+  "keywords": [
+    "i18n",
+    "translation",
+    "yapyak"
+  ],
+  "license": "MIT",
+  "name": "yapyak",
+  "repository": "https://github.com/yapyak/yapyak",
+  "skills": [
+    "./"
+  ],
+  "version": "0.0.1"
+}

@@ -1,0 +1,14 @@
+{
+  "description": "Claude Code plugin marketplace for yapyak.",
+  "name": "yapyak",
+  "owner": {
+    "name": "Joakim Uhrwing"
+  },
+  "plugins": [
+    {
+      "description": "Agent skill for yapyak.",
+      "name": "yapyak",
+      "source": "./skills"
+    }
+  ]
+}
