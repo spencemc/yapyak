@@ -1,6 +1,8 @@
 ---
 name: yapyak-commit
 description: "Commit messages: the area-prefix form, the closed area table, subject and body rules, the push ban. Use when writing a git commit message or asked to commit."
+metadata:
+  internal: true
 ---
 
 ### Form

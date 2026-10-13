@@ -1,6 +1,8 @@
 ---
 name: yapyak-name
 description: "Naming: filename derivation, type suffixes, discriminator fields, boolean prefixes, singular-vs-plural, no-abbreviation. Use when naming a file, folder, type, symbol, or boolean."
+metadata:
+  internal: true
 ---
 
 Every rule here is a deterministic operation on an export or type name. The only human input is coining a brand-new domain noun — itself bound by the suffix and form rules. No taste, no judgment.

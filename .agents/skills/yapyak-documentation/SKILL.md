@@ -1,6 +1,8 @@
 ---
 name: yapyak-documentation
 description: "Guide authoring: voice, what-to-cut, structure, code blocks, framework switching, page templates, tone budget. Use when writing or editing guide content."
+metadata:
+  internal: true
 ---
 
 User-facing guide at `docs/content/guide/*.md`. JSDoc → [[yapyak-jsdoc]], README → [[yapyak-package]], vocabulary → [[yapyak-terminology]].

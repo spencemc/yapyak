@@ -1,6 +1,8 @@
 ---
 name: yapyak-package
 description: "Packaging: `package.json`, `exports`, dependencies, the `tsdown` and `svelte-package` builds, scope tiers, README convention. Use when editing package config, exports, or the build."
+metadata:
+  internal: true
 ---
 
 ### TypeScript config

@@ -1,6 +1,8 @@
 ---
 name: yapyak-dependency
 description: "Dependency updates: the bump routine, holds, the release-age gate, tool floors. Use when bumping a dependency, pnpm, or Node, or adding version-management config."
+metadata:
+  internal: true
 ---
 
 ### The bump routine

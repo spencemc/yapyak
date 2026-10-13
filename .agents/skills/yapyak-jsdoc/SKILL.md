@@ -1,6 +1,8 @@
 ---
 name: yapyak-jsdoc
 description: "TSDoc: category formulas, the `@param`/`@returns`/`@example` tags, when an example is required, linking. Use when writing JSDoc on an exported symbol."
+metadata:
+  internal: true
 ---
 
 TSDoc on public API symbols only.

@@ -1,6 +1,8 @@
 ---
 name: yapyak-ci
 description: "CI workflows: the action-pinning rule, SHA resolution, permissions, job invariants. Use when editing a workflow under `.github/workflows/`."
+metadata:
+  internal: true
 ---
 
 ### Action pinning

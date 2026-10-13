@@ -1,6 +1,8 @@
 ---
 name: yapyak-comment
 description: "Comments: the no-comment rule, functional-comment exceptions, the `biome-ignore` format, `@ts-*` directives. Use when adding a comment or a linter or type-checker suppression."
+metadata:
+  internal: true
 ---
 
 No comments in code. Two exceptions, nothing else:

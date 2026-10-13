@@ -1,6 +1,8 @@
 ---
 name: yapyak-visibility
 description: "Visibility: public vs internal vs private, the `/internal` subpath, transitive closure of exported types. Use when deciding whether a symbol is exported or internal."
+metadata:
+  internal: true
 ---
 
 ### Package kinds

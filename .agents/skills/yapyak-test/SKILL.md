@@ -1,6 +1,8 @@
 ---
 name: yapyak-test
 description: "Testing: the test-or-not rules, the Yap List verbs, the Yak Pool fixtures, property-based testing. Use when writing or editing a test."
+metadata:
+  internal: true
 ---
 
 ### Which symbols to unit test

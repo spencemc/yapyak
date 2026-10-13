@@ -1,6 +1,8 @@
 ---
 name: yapyak-element-type
 description: "ElementType vocabulary: the closed set of nouns ending class names (`[Role]ElementType`) and component names (`[Resource]ElementType`). Use when naming a CSS class or a component by its root element."
+metadata:
+  internal: true
 ---
 
 The closed set of nouns that end every UI name. One vocabulary, two consumers:

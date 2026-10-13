@@ -1,6 +1,8 @@
 ---
 name: yapyak-workflow
 description: "Working method: verify before claiming, stop signals, scope of 'kör', ambiguity handling, never invent. Use when starting a task or reporting work done."
+metadata:
+  internal: true
 ---
 
 ### Verify against code

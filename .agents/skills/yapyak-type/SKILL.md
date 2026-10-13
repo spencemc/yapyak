@@ -1,6 +1,8 @@
 ---
 name: yapyak-type
 description: "Type system: `type` vs `interface`, inline-vs-named unions, boolean and argument defaults, error classes. Use when defining a type, union, default, or function signature."
+metadata:
+  internal: true
 ---
 
 ### Always use `type`, never `interface`

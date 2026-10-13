@@ -1,6 +1,8 @@
 ---
 name: yapyak-module
 description: "Modules: file extraction, barrels, imports and exports, folder thresholds, internal subpaths, `lib/` vs `utils/`. Use when adding, splitting, or importing files and folders."
+metadata:
+  internal: true
 ---
 
 ### Export form
