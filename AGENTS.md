@@ -34,7 +34,7 @@ Detailed conventions live as portable **Agent Skills** in `.agents/skills/` — 
 - **Code:** `yapyak-type` · `yapyak-name` · `yapyak-module` · `yapyak-nullability` · `yapyak-comment`
 - **Library:** `yapyak-visibility` · `yapyak-package` · `yapyak-jsdoc`
 - **Testing:** `yapyak-test`
-- **Yapyak-specific:** `yapyak-diagnostic` · `yapyak-terminology`
+- **Yapyak-specific:** `yapyak-diagnostic` · `yapyak-terminology` · `yapyak-skill`
 - **App (`docs/`):** `yapyak-react` · `yapyak-box` · `yapyak-css` · `yapyak-element-type` · `yapyak-tanstack-start` · `yapyak-app` · `yapyak-documentation`
 - **Infra:** `yapyak-ci` · `yapyak-dependency`
 - **Process:** `yapyak-workflow` · `yapyak-style` · `yapyak-commit`
