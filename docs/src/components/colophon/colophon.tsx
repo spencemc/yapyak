@@ -48,13 +48,18 @@ export function Colophon(props: ColophonProps) {
               {children}
             </ColophonLink>
           )}
+          contributorsLink={(children) => (
+            <ColophonLink href="https://github.com/yapyak/yapyak/graphs/contributors">
+              {children}
+            </ColophonLink>
+          )}
           licenceLink={(children) => (
             <ColophonLink href="https://github.com/yapyak/yapyak/blob/main/LICENSE">
               {children}
             </ColophonLink>
           )}
           value={t(
-            '<licenceLink>MIT-licensed</licenceLink>. Built by <builtByLink>Joakim Uhrwing</builtByLink>.',
+            '<licenceLink>MIT-licensed</licenceLink>. Built by <builtByLink>Joakim Uhrwing</builtByLink> and <contributorsLink>contributors</contributorsLink>.',
           )}
         />
       </Box>
