@@ -34,6 +34,9 @@ Save the file, and yapyak adds the string to your locale files. Connect a model 
 > [!TIP]
 > yapyak ships a [VS Code extension](https://marketplace.visualstudio.com/items?itemName=yapyak.yapyak), also on [Open VSX](https://open-vsx.org/extension/yapyak/yapyak) for Cursor and the other forks. It highlights the ICU where you write it, shows every locale on hover, marks a misspelled placeholder with a red squiggle and a quick fix, and lets the model translate a locale file without leaving the editor.
 
+> [!TIP]
+> There is also an [agent skill](skills/yapyak) for Claude Code, Codex, Cursor, and other coding agents. It teaches the agent all of yapyak and is updated with every release. Install it with `npx skills add yapyak/yapyak`, or in Claude Code as a plugin with `/plugin install yapyak --marketplace yapyak/yapyak`.
+
 ## Demo
 
 ![A t() call is saved, translated into de.json, and pushed to the browser over HMR.](docs/public/demo.gif)
