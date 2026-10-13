@@ -482,6 +482,10 @@ npm install yapyak @yapyak/astro @yapyak/claude-code
 The [yapyak extension for VS Code](https://marketplace.visualstudio.com/items?itemName=yapyak.yapyak) highlights the ICU in source strings and locale files, shows the translations of a `t()` call on hover, reports the compiler's diagnostics as you type with quick fixes, and translates a locale file from the editor. Editors built on VS Code, like Cursor, install it from [Open VSX](https://open-vsx.org/extension/yapyak/yapyak).
 {% /callout %}
 
+{% callout variant="tip" %}
+There is also an [agent skill](https://github.com/yapyak/yapyak/tree/main/skills/yapyak) for Claude Code, Codex, Cursor, and other coding agents. It teaches the agent all of yapyak and is updated with every release. Install it with `npx skills add yapyak/yapyak`, or in Claude Code as a plugin with `/plugin install yapyak --marketplace yapyak/yapyak`.
+{% /callout %}
+
 ## Setup
 
 {% switch group="framework" %}
@@ -1611,3 +1615,4 @@ Without a [translator](/guide/translating/providers), the stub stays empty and t
 {% /switch %}
 
 [Switch the locale](/guide/switching/switch) to see it. The active locale resets on reload until you configure [`persistence`](/guide/switching/persistence).
+
