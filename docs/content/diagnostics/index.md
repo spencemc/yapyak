@@ -109,3 +109,4 @@ Things related to [persistence strategies](/guide/switching/persistence).
 - [`YAP0035`](/reference/diagnostics/YAP0035): Unsupported currency
 - [`YAP0036`](/reference/diagnostics/YAP0036): Unsupported unit
 - [`YAP0037`](/reference/diagnostics/YAP0037): Unsupported time zone
+- [`YAP0056`](/reference/diagnostics/YAP0056): Unsupported display name

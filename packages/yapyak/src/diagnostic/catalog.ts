@@ -435,6 +435,11 @@ export const YAP_RUNTIME = {
     message: ({ path, reason }: { path: string; reason: string }): string =>
       `Locale file ${path} is not readable (${reason}). Check the file permissions and the open-file limit, then restart the dev server.`,
   },
+  FORMAT_UNSUPPORTED_DISPLAY_NAME: {
+    code: 'YAP0056',
+    message: ({ code, type }: { code: string; type: string }): string =>
+      `Unsupported ${type} code "${code}". Yapyak rendered the code itself.`,
+  },
 } as const;
 
 export type YapCode =

@@ -2,6 +2,7 @@ export type { Currency } from './currency';
 export type {
   Format,
   FormatDateTimeOptions,
+  FormatDisplayNameOptions,
   FormatListOptions,
   FormatNumberOptions,
   FormatRelativeTimeOptions,

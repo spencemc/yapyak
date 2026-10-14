@@ -226,6 +226,55 @@ describe('format', () => {
     });
   });
 
+  describe('displayName', () => {
+    describe('with defaults', () => {
+      it('returns the language name for the active locale', () => {
+        setLocale('sv');
+        expect(format.displayName('en', 'language')).toBe('engelska');
+      });
+
+      it('returns the region name for the active locale', () => {
+        setLocale('sv');
+        expect(format.displayName('DE', 'region')).toBe('Tyskland');
+      });
+
+      it('returns the currency name for the active locale', () => {
+        setLocale('sv');
+        expect(format.displayName('EUR', 'currency')).toBe('euro');
+      });
+
+      it('returns the code when the host has no name for it', () => {
+        setLocale('en');
+        expect(format.displayName('xx', 'language')).toBe('xx');
+      });
+
+      it('returns the code when the host rejects it', () => {
+        setLocale('en');
+        expect(format.displayName('not a tag', 'language')).toBe('not a tag');
+      });
+    });
+
+    describe('with overrides', () => {
+      it('returns a short name when `style` is `short`', () => {
+        setLocale('en');
+        expect(
+          format.displayName('en-US', 'language', {
+            style: 'short',
+          }),
+        ).toBe('US English');
+      });
+
+      it('returns a standard name when `languageDisplay` is `standard`', () => {
+        setLocale('en');
+        expect(
+          format.displayName('en-US', 'language', {
+            languageDisplay: 'standard',
+          }),
+        ).toBe('English (United States)');
+      });
+    });
+  });
+
   describe('relativeTime', () => {
     it('returns a past offset for a negative value', () => {
       setLocale('en');
@@ -259,6 +308,11 @@ describe('format', () => {
     it('preserves the last locale when chained', () => {
       setLocale('en');
       expect(format.in('sv').in('en').number(1000)).toBe('1,000');
+    });
+
+    it('returns the native name of a locale when scoped to itself', () => {
+      setLocale('en');
+      expect(format.in('sv').displayName('sv', 'language')).toBe('svenska');
     });
   });
 });

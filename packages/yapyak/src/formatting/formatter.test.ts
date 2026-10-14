@@ -253,6 +253,59 @@ describe('resolveFormatter', () => {
     });
   });
 
+  describe('display name safety net', () => {
+    let warnSpy: ReturnType<
+      typeof vi.fn<(message: string, meta?: Record<string, unknown>) => void>
+    >;
+
+    beforeEach(() => {
+      warnSpy =
+        vi.fn<(message: string, meta?: Record<string, unknown>) => void>();
+      setWarn(warnSpy);
+    });
+
+    afterEach(() => {
+      resetWarn();
+    });
+
+    it('returns a code fallback when Intl rejects the code', () => {
+      const displayNames = resolveFormatter(Intl.DisplayNames, 'en', {
+        type: 'language',
+      });
+      expect(displayNames.of('not a tag')).toBe('not a tag');
+    });
+
+    it('warns once per locale-and-code pair when the code is rejected', () => {
+      const displayNames = resolveFormatter(Intl.DisplayNames, 'en', {
+        type: 'region',
+      });
+      displayNames.of('not once');
+      displayNames.of('not once');
+      expect(warnSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('warns once when the same code is rejected under a different option shape', () => {
+      resolveFormatter(Intl.DisplayNames, 'en', {
+        type: 'currency',
+      }).of('not shape');
+      resolveFormatter(Intl.DisplayNames, 'en', {
+        style: 'short',
+        type: 'currency',
+      }).of('not shape');
+      expect(warnSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('warns again when the same code is rejected in a different locale', () => {
+      resolveFormatter(Intl.DisplayNames, 'en', {
+        type: 'script',
+      }).of('not cross');
+      resolveFormatter(Intl.DisplayNames, 'sv', {
+        type: 'script',
+      }).of('not cross');
+      expect(warnSpy).toHaveBeenCalledTimes(2);
+    });
+  });
+
   describe('invalid locale fallback', () => {
     let warnSpy: ReturnType<
       typeof vi.fn<(message: string, meta?: Record<string, unknown>) => void>

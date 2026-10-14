@@ -51,6 +51,16 @@ export type FormatDateTimeOptions = Omit<
 >;
 
 /**
+ * Options for {@link format.displayName}.
+ *
+ * @see [Intl.DisplayNames](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DisplayNames/DisplayNames)
+ */
+export type FormatDisplayNameOptions = Omit<
+  Intl.DisplayNamesOptions,
+  'fallback' | 'localeMatcher' | 'type'
+>;
+
+/**
  * Options for {@link format.list}.
  *
  * @see [Intl.ListFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/ListFormat/ListFormat)
@@ -137,6 +147,44 @@ export type Format = {
   dateTime(value: Date | number, options?: FormatDateTimeOptions): string;
 
   /**
+   * Formats the display name of a code for the active locale.
+   *
+   * @param code - The code.
+   * @param type - The kind of code.
+   * @param options - The options.
+   *
+   * @example
+   * ```ts
+   * format.displayName('sv', 'language');
+   * // output:
+   * // en: 'Swedish'
+   * // sv: 'svenska'
+   * // de: 'Schwedisch'
+   * ```
+   *
+   * @example Currency
+   * ```ts
+   * format.displayName('EUR', 'currency');
+   * // output:
+   * // en: 'Euro'
+   * // sv: 'euro'
+   * ```
+   *
+   * @example Native name of each locale
+   * ```ts
+   * import { format, locales } from 'yapyak';
+   *
+   * locales.map((value) => format.in(value).displayName(value, 'language'));
+   * // output: ['English', 'svenska']
+   * ```
+   */
+  displayName(
+    code: string,
+    type: Intl.DisplayNamesType,
+    options?: FormatDisplayNameOptions,
+  ): string;
+
+  /**
    * Scopes formatting to a forced locale.
    *
    * @param locale - The locale code.
@@ -218,6 +266,16 @@ function createFormat(boundLocale?: string): Format {
       const locale = boundLocale ?? getLocale();
       return resolveFormatter(Intl.DateTimeFormat, locale, options).format(
         value,
+      );
+    },
+    displayName: (code, type, options) => {
+      runTrackers();
+      const locale = boundLocale ?? getLocale();
+      return (
+        resolveFormatter(Intl.DisplayNames, locale, {
+          ...options,
+          type,
+        }).of(code) ?? code
       );
     },
     in: (locale) => createFormat(locale),

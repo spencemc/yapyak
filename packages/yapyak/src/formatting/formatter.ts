@@ -2,7 +2,7 @@ import { warnDiagnostic } from '../diagnostic';
 import { defaultLocale } from '../locale';
 import { isCurrency } from './currency';
 
-type IntlFormatterCtor<T> = new (locale: string, options?: object) => T;
+type IntlFormatterCtor<T> = new (locale: string, options: never) => T;
 
 const MAX_FORMATTERS_PER_CTOR = 64;
 const MAX_VALID_LOCALES = 64;
@@ -10,6 +10,7 @@ const MAX_WARNED_INVALID_LOCALES = 64;
 
 const caches = new Map<IntlFormatterCtor<unknown>, Map<string, unknown>>();
 const warnedCurrencyKeys = new Set<string>();
+const warnedDisplayNameKeys = new Set<string>();
 const warnedUnitKeys = new Set<string>();
 const warnedTimeZoneKeys = new Set<string>();
 const warnedInvalidLocales = new Set<string>();
@@ -57,7 +58,16 @@ function buildFormatter<T>(
     }
   }
   try {
-    return new ctor(locale, options);
+    const formatter = new ctor(locale, options as never);
+    if (isDisplayNamesConstruction(ctor)) {
+      const { type } = options as Intl.DisplayNamesOptions;
+      return buildDisplayNameFallback(
+        formatter as Intl.DisplayNames,
+        locale,
+        type,
+      ) as T;
+    }
+    return formatter;
   } catch (cause) {
     if (isCurrencyConstruction(ctor, options)) {
       const code = (options as Intl.NumberFormatOptions).currency as string;
@@ -120,6 +130,10 @@ function isCurrencyConstruction(
   );
 }
 
+function isDisplayNamesConstruction(ctor: IntlFormatterCtor<unknown>): boolean {
+  return (ctor as typeof Intl.DisplayNames) === Intl.DisplayNames;
+}
+
 function isUnitConstruction(
   ctor: IntlFormatterCtor<unknown>,
   options: object | undefined,
@@ -165,6 +179,33 @@ function warnUnsupportedCurrencyOnce(
     'FORMAT_UNSUPPORTED_CURRENCY',
     {
       code,
+    },
+    meta,
+  );
+}
+
+function warnUnsupportedDisplayNameOnce(
+  code: string,
+  locale: string,
+  type: Intl.DisplayNamesType,
+  cause: unknown,
+): void {
+  const dedupKey = `${locale}|${type}|${code}`;
+  if (warnedDisplayNameKeys.has(dedupKey)) {
+    return;
+  }
+  warnedDisplayNameKeys.add(dedupKey);
+  const meta: Record<string, unknown> = {
+    cause,
+    code,
+    locale,
+    type,
+  };
+  warnDiagnostic(
+    'FORMAT_UNSUPPORTED_DISPLAY_NAME',
+    {
+      code,
+      type,
     },
     meta,
   );
@@ -232,6 +273,23 @@ function buildCurrencyFallback(
   } as Intl.NumberFormat;
 }
 
+function buildDisplayNameFallback(
+  displayNames: Intl.DisplayNames,
+  locale: string,
+  type: Intl.DisplayNamesType,
+): Intl.DisplayNames {
+  return {
+    of: (code: string) => {
+      try {
+        return displayNames.of(code);
+      } catch (cause) {
+        warnUnsupportedDisplayNameOnce(code, locale, type, cause);
+        return code;
+      }
+    },
+  } as Intl.DisplayNames;
+}
+
 function buildUnitFallback(
   locale: string,
   unit: string,
@@ -248,7 +306,7 @@ function buildTimeZoneFallback<T>(
   locale: string,
   options: object | undefined,
 ): T {
-  return new ctor(locale, stripTimeZoneField(options));
+  return new ctor(locale, stripTimeZoneField(options) as never);
 }
 
 function stripCurrencyFields(

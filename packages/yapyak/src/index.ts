@@ -14,6 +14,7 @@ export type {
   Currency,
   Format,
   FormatDateTimeOptions,
+  FormatDisplayNameOptions,
   FormatListOptions,
   FormatNumberOptions,
   FormatRelativeTimeOptions,
