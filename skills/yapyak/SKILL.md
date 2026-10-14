@@ -25,7 +25,7 @@ Every `YAPnnnn` diagnostic, its cause, and its fix: [references/diagnostics.md](
 
 ## Install
 
-Requirements: Node.js 22.22+, Vite 8+. Frameworks: React 19+, Vue 3.4+, Svelte 5+, Astro 7+, Nuxt 4.1+, React Router 7.9+, SvelteKit 2+, TanStack Start 1.168+.
+Requirements: Node.js 22.22+, Vite 8+. Frameworks: React 19+, Vue 3.4+, Svelte 5+, Astro 7+, Nuxt 4.1+, React Router 7.9+, SvelteKit 3+, TanStack Start 1.168+.
 
 | Framework | Install | Build config | Processor |
 | --- | --- | --- | --- |
@@ -53,7 +53,7 @@ export default defineConfig({
 });
 ```
 
-4. Add `.yapyak/types.d.ts` to `include` in `tsconfig.json`. SvelteKit references it from `src/app.d.ts` instead; Nuxt adds it on its own.
+4. Add `.yapyak/types.d.ts` to `include` in `tsconfig.json`. Nuxt adds it on its own.
 5. Add the first target locale: `npx yapyak add sv`. This creates `locales/sv.json` and regenerates the `Locale` type.
 6. Add `.yapyak/` to `.gitignore`. It holds the orphan cache; the locale files are the committed source of truth.
 

@@ -1,6 +1,6 @@
 # SvelteKit
 
-SvelteKit 2+ with Svelte 5. Components, the binding, the switcher, and rich text are the Svelte ones: [svelte.md](svelte.md).
+SvelteKit 3+ with Svelte 5. Components, the binding, the switcher, and rich text are the Svelte ones: [svelte.md](svelte.md).
 
 ### Packages
 
@@ -37,11 +37,7 @@ Use `'cookie'` or `'url'`; local storage flashes `defaultLocale` on every server
 
 ### Types
 
-Reference the generated types from `src/app.d.ts`, not from `tsconfig.json`:
-
-```ts [src/app.d.ts]
-/// <reference path="../.yapyak/types.d.ts" />
-```
+Add `.yapyak/types.d.ts` to `include` in `tsconfig.json`.
 
 ### Component
 
