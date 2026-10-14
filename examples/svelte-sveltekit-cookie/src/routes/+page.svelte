@@ -20,7 +20,7 @@
         disabled={value === locale.current}
         onclick={() => (locale.current = value)}
       >
-        {value === "sv" ? t("Swedish") : t("English")}
+        {format.in(value).displayName(value, "language")}
       </button>
     {/each}
   </div>
@@ -29,7 +29,7 @@
   <form {...localeForm} style="display: flex; gap: 8px;">
     {#each locales as value}
       <button name="locale" {value} disabled={value === locale.current}>
-        {value === "sv" ? t("Swedish") : t("English")}
+        {format.in(value).displayName(value, "language")}
       </button>
     {/each}
   </form>

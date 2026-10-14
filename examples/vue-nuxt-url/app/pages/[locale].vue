@@ -21,7 +21,7 @@ const date = new Date('2024-01-01T08:30:00Z');
         :key="value"
         :to="`/${value}`"
       >
-        {{ value === 'sv' ? t('Swedish') : t('English') }}
+        {{ format.in(value).displayName(value, 'language') }}
       </NuxtLink>
     </div>
 

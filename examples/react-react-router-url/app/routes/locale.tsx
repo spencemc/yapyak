@@ -43,7 +43,7 @@ export default function LocalePage() {
             key={value}
             to={`/${value}`}
           >
-            {value === 'sv' ? t('Swedish') : t('English')}
+            {format.in(value).displayName(value, 'language')}
           </Link>
         ))}
       </div>

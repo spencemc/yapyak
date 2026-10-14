@@ -35,7 +35,7 @@ export function App() {
             onClick={() => setLocale(value)}
             type="button"
           >
-            {value === 'sv' ? t('Swedish') : t('English')}
+            {format.in(value).displayName(value, 'language')}
           </button>
         ))}
       </div>

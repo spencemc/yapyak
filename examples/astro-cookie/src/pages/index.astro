@@ -22,7 +22,7 @@ const currentLocale = getLocale();
           value={value}
           disabled={value === currentLocale}
         >
-          {value === 'sv' ? t('Swedish') : t('English')}
+          {format.in(value).displayName(value, 'language')}
         </button>
       ))}
     </div>

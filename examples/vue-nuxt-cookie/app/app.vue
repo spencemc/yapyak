@@ -30,7 +30,7 @@ function switchLocale(value: string) {
         :disabled="value === locale"
         @click="locale = value"
       >
-        {{ value === 'sv' ? t('Swedish') : t('English') }}
+        {{ format.in(value).displayName(value, 'language') }}
       </button>
     </div>
 
@@ -43,7 +43,7 @@ function switchLocale(value: string) {
         :disabled="value === locale"
         @click="switchLocale(value)"
       >
-        {{ value === 'sv' ? t('Swedish') : t('English') }}
+        {{ format.in(value).displayName(value, 'language') }}
       </button>
     </div>
 

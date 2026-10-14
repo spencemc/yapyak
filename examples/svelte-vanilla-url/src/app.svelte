@@ -16,7 +16,7 @@
         href={`/${value}`}
         aria-current={value === locale.current ? "page" : undefined}
       >
-        {value === "sv" ? t("Swedish") : t("English")}
+        {format.in(value).displayName(value, "language")}
       </a>
     {/each}
   </div>

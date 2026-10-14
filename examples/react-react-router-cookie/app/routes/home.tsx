@@ -48,7 +48,7 @@ export default function Home() {
             onClick={() => setLocale(value)}
             type="button"
           >
-            {value === 'sv' ? t('Swedish') : t('English')}
+            {format.in(value).displayName(value, 'language')}
           </button>
         ))}
       </div>
@@ -69,7 +69,7 @@ export default function Home() {
             type="submit"
             value={value}
           >
-            {value === 'sv' ? t('Swedish') : t('English')}
+            {format.in(value).displayName(value, 'language')}
           </button>
         ))}
       </Form>

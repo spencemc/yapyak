@@ -49,7 +49,7 @@ function Component() {
             }}
             to="/$locale"
           >
-            {value === 'sv' ? t('Swedish') : t('English')}
+            {format.in(value).displayName(value, 'language')}
           </Link>
         ))}
       </div>

@@ -18,7 +18,7 @@ const date = new Date('2024-01-01T08:30:00Z');
         :href="`/${value}`"
         :aria-current="value === locale ? 'page' : undefined"
       >
-        {{ value === 'sv' ? t('Swedish') : t('English') }}
+        {{ format.in(value).displayName(value, 'language') }}
       </a>
     </div>
 

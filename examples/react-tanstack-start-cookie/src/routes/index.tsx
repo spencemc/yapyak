@@ -53,7 +53,7 @@ function Component() {
             onClick={() => setLocale(value)}
             type="button"
           >
-            {value === 'sv' ? t('Swedish') : t('English')}
+            {format.in(value).displayName(value, 'language')}
           </button>
         ))}
       </div>
@@ -76,7 +76,7 @@ function Component() {
             }
             type="button"
           >
-            {value === 'sv' ? t('Swedish') : t('English')}
+            {format.in(value).displayName(value, 'language')}
           </button>
         ))}
       </div>

@@ -24,7 +24,7 @@ const currentLocale = getLocale();
         href={`/${value}`}
         aria-current={value === currentLocale ? 'page' : undefined}
       >
-        {value === 'sv' ? t('Swedish') : t('English')}
+        {format.in(value).displayName(value, 'language')}
       </a>
     ))}
   </div>

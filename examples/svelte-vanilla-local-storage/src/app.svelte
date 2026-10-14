@@ -17,7 +17,7 @@
         disabled={value === locale.current}
         onclick={() => (locale.current = value)}
       >
-        {value === "sv" ? t("Swedish") : t("English")}
+        {format.in(value).displayName(value, "language")}
       </button>
     {/each}
   </div>

@@ -19,7 +19,7 @@ const date = new Date('2024-01-01T08:30:00Z');
         :disabled="value === locale"
         @click="locale = value"
       >
-        {{ value === 'sv' ? t('Swedish') : t('English') }}
+        {{ format.in(value).displayName(value, 'language') }}
       </button>
     </div>
 
