@@ -46,7 +46,7 @@
     "vitest": "catalog:"
   },
   "peerDependencies": {
-    "@sveltejs/kit": ">=2",
+    "@sveltejs/kit": ">=3",
     "yapyak": "workspace:*"
   },
   "engines": {

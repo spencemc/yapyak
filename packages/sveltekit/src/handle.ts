@@ -1,4 +1,4 @@
-import type { Handle } from '@sveltejs/kit';
+import type { Handle } from '@sveltejs/kit/hooks';
 
 import { getLocale, getTextDirection } from 'yapyak';
 import { withResponse } from 'yapyak/adapter';
