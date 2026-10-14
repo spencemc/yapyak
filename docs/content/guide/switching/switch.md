@@ -114,7 +114,7 @@ A common pattern: a dropdown that lists every available locale and switches to w
 {% when value="react" %}
 ```tsx
 import { useLocale } from '@yapyak/react';
-import { locales, parseLocale } from 'yapyak';
+import { format, locales, parseLocale } from 'yapyak';
 
 export function LocaleSwitcher() {
   const [locale, setLocale] = useLocale();
@@ -131,7 +131,7 @@ export function LocaleSwitcher() {
     >
       {locales.map((value) => (
         <option key={value} value={value}>
-          {labelOf(value)}
+          {format.in(value).displayName(value, 'language')}
         </option>
       ))}
     </select>
@@ -144,13 +144,13 @@ export function LocaleSwitcher() {
 ```vue
 <script setup lang="ts">
 import { locale } from '@yapyak/vue';
-import { locales } from 'yapyak';
+import { format, locales } from 'yapyak';
 </script>
 
 <template>
   <select v-model="locale">
     <option v-for="value in locales" :key="value" :value="value">
-      {{ labelOf(value) }}
+      {{ format.in(value).displayName(value, 'language') }}
     </option>
   </select>
 </template>
@@ -161,12 +161,12 @@ import { locales } from 'yapyak';
 ```svelte
 <script lang="ts">
   import { locale } from '@yapyak/svelte';
-  import { locales } from 'yapyak';
+  import { format, locales } from 'yapyak';
 </script>
 
 <select bind:value={locale.current}>
   {#each locales as value (value)}
-    <option {value}>{labelOf(value)}</option>
+    <option {value}>{format.in(value).displayName(value, 'language')}</option>
   {/each}
 </select>
 ```
@@ -175,7 +175,7 @@ import { locales } from 'yapyak';
 {% when value="astro" %}
 ```astro
 ---
-import { getLocale, locales } from 'yapyak';
+import { format, getLocale, locales } from 'yapyak';
 
 const current = getLocale();
 ---
@@ -183,7 +183,7 @@ const current = getLocale();
 <form method="get">
   <select name="locale" onchange="this.form.submit()">
     {locales.map((value) => (
-      <option value={value} selected={value === current}>{labelOf(value)}</option>
+      <option value={value} selected={value === current}>{format.in(value).displayName(value, 'language')}</option>
     ))}
   </select>
 </form>
@@ -194,7 +194,7 @@ With `persistence: 'url'` set, submitting the form navigates to a URL containing
 
 {% /switch %}
 
-The `labelOf` helper is up to you. yapyak doesn't ship one because the right label depends on your app. A common choice is the locale's native name (`labelOf('sv') === 'Svenska'`), often computed with `new Intl.DisplayNames(value, { type: 'language' }).of(value)`.
+Each option shows its locale in that locale's own language, `svenska` for `sv`. The names come from `Intl`, so a locale added with `yapyak add` appears in the menu without a new source string. See [Names](/guide/formatting/names).
 
 {% callout variant="tip" %}
 If you want the user's choice to survive a refresh or a new tab, pair the switcher with a [persistence](/guide/switching/persistence) strategy. Without one, the active locale lives only for the current page session.

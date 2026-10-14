@@ -38,6 +38,13 @@ format.relativeTime(-1, 'day');
 // sv-SE: 'för 1 dag sedan'
 ```
 
+```ts
+format.displayName('sv', 'language');
+// output:
+// en-US: 'Swedish'
+// sv-SE: 'svenska'
+```
+
 Each method maps directly to an `Intl.*Format` class:
 
 | Method | Backed by |
@@ -46,6 +53,7 @@ Each method maps directly to an `Intl.*Format` class:
 | [`format.dateTime`](/reference/yapyak/format.dateTime) | `Intl.DateTimeFormat` |
 | [`format.list`](/reference/yapyak/format.list) | `Intl.ListFormat` |
 | [`format.relativeTime`](/reference/yapyak/format.relativeTime) | `Intl.RelativeTimeFormat` |
+| [`format.displayName`](/reference/yapyak/format.displayName) | `Intl.DisplayNames` |
 
 ## What yapyak adds
 

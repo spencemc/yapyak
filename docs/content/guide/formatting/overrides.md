@@ -1,6 +1,6 @@
 ---
 title: Overrides
-order: 5
+order: 6
 ---
 
 [`format.in(locale)`](/reference/yapyak/Format) scopes a `format.*` call (or chain) to a forced locale, regardless of the active one. Use it for one-off formatting in a non-active locale.
