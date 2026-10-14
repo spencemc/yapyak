@@ -180,7 +180,7 @@ test('renders Swedish content when Swedish is clicked', async ({
     page,
     page
       .getByRole(persistence === 'url' ? 'link' : 'button', {
-        name: 'Swedish',
+        name: 'svenska',
       })
       .first(),
   );
@@ -199,7 +199,7 @@ test('preserves the locale when the page reloads', async ({
     page,
     page
       .getByRole('button', {
-        name: 'Swedish',
+        name: 'svenska',
       })
       .first(),
   );
@@ -223,7 +223,7 @@ test('renders Swedish content when the server switch is clicked', async ({
     page,
     page
       .getByRole('button', {
-        name: 'Swedish',
+        name: 'svenska',
       })
       .last(),
   );
