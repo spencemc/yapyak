@@ -623,6 +623,7 @@ describe('yapyak', () => {
       }
       await (hook as (config: ResolvedConfig) => unknown).call(plugin, {
         command: 'serve',
+        environments: {},
         logger,
         root,
       } as ResolvedConfig);
@@ -701,6 +702,7 @@ describe('yapyak', () => {
       }
       await (hook as (config: ResolvedConfig) => unknown).call(plugin, {
         command: 'serve',
+        environments: {},
         logger,
         root,
       } as ResolvedConfig);
@@ -735,6 +737,7 @@ describe('yapyak', () => {
       }
       await (hook as (config: ResolvedConfig) => unknown).call(plugin, {
         command: 'serve',
+        environments: {},
         logger,
         root,
       } as ResolvedConfig);
@@ -770,6 +773,7 @@ describe('yapyak', () => {
       }
       await (hook as (config: ResolvedConfig) => unknown).call(plugin, {
         command: 'serve',
+        environments: {},
         logger,
         root,
       } as ResolvedConfig);
@@ -927,6 +931,7 @@ describe('yapyak', () => {
       }
       await (hook as (config: ResolvedConfig) => unknown).call(plugin, {
         command: 'serve',
+        environments: {},
         logger,
         root,
       } as ResolvedConfig);
@@ -972,6 +977,7 @@ describe('yapyak', () => {
       }
       await (hook as (config: ResolvedConfig) => unknown).call(plugin, {
         command: 'serve',
+        environments: {},
         logger,
         root,
       } as ResolvedConfig);
@@ -1025,6 +1031,7 @@ describe('yapyak', () => {
       }
       await (hook as (config: ResolvedConfig) => unknown).call(plugin, {
         command: 'serve',
+        environments: {},
         logger,
         root,
       } as ResolvedConfig);
@@ -1358,7 +1365,7 @@ describe('yapyak', () => {
       expect(sv['src/a.tsx']).toBeUndefined();
     });
 
-    it('warns when `ssr.external` is set to `true`', async () => {
+    it('warns when `resolve.external` is `true` for a server environment', async () => {
       const warnings: string[] = [];
       const logger = createSilentLogger();
       logger.warn = (message: string) => {
@@ -1371,22 +1378,30 @@ describe('yapyak', () => {
       }
       await (hook as (config: ResolvedConfig) => unknown).call(plugin, {
         command: 'serve',
+        environments: {
+          ssr: {
+            consumer: 'server',
+            resolve: {
+              external: true,
+            },
+          },
+        },
         logger,
         root,
-        ssr: {
-          external: true,
-        },
       } as unknown as ResolvedConfig);
-      expect(
-        warnings.some((line) => line.includes('config.ssr.external')),
-      ).toBe(true);
+      expect(warnings.some((line) => line.includes('resolve.external'))).toBe(
+        true,
+      );
     });
 
-    it('warns when `ssr.external` is set to a function', async () => {
-      const warnings: string[] = [];
-      const logger = createSilentLogger();
-      logger.warn = (message: string) => {
-        warnings.push(message);
+    it('replaces `resolve.external` of a server environment with only the non-yapyak entries', async () => {
+      const resolve = {
+        external: [
+          'react',
+          'yapyak',
+          '@yapyak/react',
+          'lodash',
+        ],
       };
       const plugin = yapyak();
       const hook = findHook(plugin, 'configResolved');
@@ -1395,43 +1410,49 @@ describe('yapyak', () => {
       }
       await (hook as (config: ResolvedConfig) => unknown).call(plugin, {
         command: 'serve',
-        logger,
-        root,
-        ssr: {
-          external: () => false,
+        environments: {
+          ssr: {
+            consumer: 'server',
+            resolve,
+          },
         },
-      } as unknown as ResolvedConfig);
-      expect(warnings.some((line) => line.includes('a function'))).toBe(true);
-    });
-
-    it('replaces `ssr.external` with only the non-yapyak entries', async () => {
-      const external = [
-        'react',
-        'yapyak',
-        '@yapyak/react',
-        'lodash',
-      ];
-      const ssr = {
-        external,
-      };
-      const plugin = yapyak();
-      const hook = findHook(plugin, 'configResolved');
-      if (typeof hook !== 'function') {
-        throw new Error('missing');
-      }
-      await (hook as (config: ResolvedConfig) => unknown).call(plugin, {
-        command: 'serve',
         logger: createSilentLogger(),
         root,
-        ssr,
       } as unknown as ResolvedConfig);
-      expect(ssr.external).toEqual([
+      expect(resolve.external).toEqual([
         'react',
         'lodash',
       ]);
     });
 
-    it('refuses to mutate the original `ssr.external` array supplied by the user', async () => {
+    it('preserves `resolve.external` of a client environment', async () => {
+      const resolve = {
+        external: [
+          'yapyak',
+        ],
+      };
+      const plugin = yapyak();
+      const hook = findHook(plugin, 'configResolved');
+      if (typeof hook !== 'function') {
+        throw new Error('missing');
+      }
+      await (hook as (config: ResolvedConfig) => unknown).call(plugin, {
+        command: 'serve',
+        environments: {
+          client: {
+            consumer: 'client',
+            resolve,
+          },
+        },
+        logger: createSilentLogger(),
+        root,
+      } as unknown as ResolvedConfig);
+      expect(resolve.external).toEqual([
+        'yapyak',
+      ]);
+    });
+
+    it('refuses to mutate the original `resolve.external` array supplied by the user', async () => {
       const external = [
         'react',
         'yapyak',
@@ -1445,11 +1466,16 @@ describe('yapyak', () => {
       }
       await (hook as (config: ResolvedConfig) => unknown).call(plugin, {
         command: 'serve',
+        environments: {
+          ssr: {
+            consumer: 'server',
+            resolve: {
+              external,
+            },
+          },
+        },
         logger: createSilentLogger(),
         root,
-        ssr: {
-          external,
-        },
       } as unknown as ResolvedConfig);
       expect(external).toEqual([
         'react',
@@ -1471,6 +1497,7 @@ describe('yapyak', () => {
       await expect(
         (hook as (config: ResolvedConfig) => unknown).call(plugin, {
           command: 'build',
+          environments: {},
           logger: createSilentLogger(),
           root,
         } as ResolvedConfig),
@@ -1492,6 +1519,7 @@ describe('yapyak', () => {
       }
       await (hook as (config: ResolvedConfig) => unknown).call(plugin, {
         command: 'serve',
+        environments: {},
         logger,
         root,
       } as ResolvedConfig);
@@ -1765,6 +1793,7 @@ describe('yapyak', () => {
       }
       await (hook as (config: ResolvedConfig) => unknown).call(plugin, {
         command: 'serve',
+        environments: {},
         logger,
         root,
       } as ResolvedConfig);
@@ -1849,9 +1878,10 @@ async function invokeConfigResolved(
   const hook = findHook(plugin, 'configResolved');
   await (hook as (config: ResolvedConfig) => unknown).call(plugin, {
     command,
+    environments: {},
     logger: createSilentLogger(),
     root,
-  } as ResolvedConfig);
+  } as unknown as ResolvedConfig);
 }
 
 function createSilentLogger(): ResolvedConfig['logger'] {

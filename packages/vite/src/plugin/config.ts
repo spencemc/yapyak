@@ -47,18 +47,21 @@ export function createConfigPlugin(state: State): Plugin {
       state.normalized = result.config;
       state.configFile = result.configFile;
       state.filter = createFilter(result.config.include, result.config.exclude);
-      const ssrExternal = config.ssr?.external;
-      if (Array.isArray(ssrExternal) && config.ssr) {
-        config.ssr.external = ssrExternal.filter(
+      for (const [name, environment] of Object.entries(config.environments)) {
+        if (environment.consumer === 'client') {
+          continue;
+        }
+        const external = environment.resolve.external;
+        if (external === true) {
+          state.logger.warn(
+            `[yapyak] resolve.external is \`true\` for the ${name} environment. ` +
+              `yapyak's runtime must not be externalized for SSR — translations would not inline. ` +
+              `Use an array for ssr.external that leaves out 'yapyak' and '@yapyak/*'.`,
+          );
+          continue;
+        }
+        environment.resolve.external = external.filter(
           (id) => !isRuntimeExternal(id),
-        );
-      } else if (ssrExternal === true || typeof ssrExternal === 'function') {
-        const description =
-          typeof ssrExternal === 'function' ? 'a function' : '`true`';
-        state.logger.warn(
-          `[yapyak] config.ssr.external is set to ${description}. ` +
-            `yapyak's runtime must not be externalized for SSR — translations would not inline. ` +
-            `Use an array form for ssr.external, or have your function return false/null for 'yapyak' and 'yapyak/runtime'.`,
         );
       }
       state.resolver = createLocaleResolver(
