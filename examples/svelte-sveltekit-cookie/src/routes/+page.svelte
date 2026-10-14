@@ -28,7 +28,7 @@
   <p>{t("From the server")}</p>
   <form {...localeForm} style="display: flex; gap: 8px;">
     {#each locales as value}
-      <button name="locale" {value} disabled={value === locale.current}>
+      <button {...localeForm.fields.locale.as("submit", value)} disabled={value === locale.current}>
         {format.in(value).displayName(value, "language")}
       </button>
     {/each}

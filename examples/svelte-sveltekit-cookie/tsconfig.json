@@ -2,5 +2,10 @@
   "compilerOptions": {
     "strict": true
   },
-  "extends": "./.svelte-kit/tsconfig.json"
+  "extends": "$app/tsconfig",
+  "include": [
+    ".yapyak/types.d.ts",
+    "src",
+    "vite.config.ts"
+  ]
 }
