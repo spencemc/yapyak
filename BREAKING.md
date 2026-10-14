@@ -10,6 +10,34 @@ An entry lands in the same change that introduces the break, under the version
 that ships it. Releases are patch-only, so that version is the next patch;
 confirm the heading against the Version Packages PR before releasing.
 
+## 0.0.18
+
+### `@yapyak/sveltekit` requires SvelteKit 3
+
+SvelteKit 3 moved the `Handle` type from `@sveltejs/kit` to `@sveltejs/kit/hooks`, and SvelteKit 2 exports it only from `@sveltejs/kit`. No single import types the handle on both, so the adapter follows SvelteKit 3 and its peer dependency is `@sveltejs/kit >=3`. The handle itself is unchanged: `src/hooks.server.ts` still re-exports it, and `src/app.html` keeps the `%yapyak.lang%` and `%yapyak.dir%` placeholders.
+
+**Before**
+
+```json
+{
+  "devDependencies": {
+    "@sveltejs/kit": "2.70.3"
+  }
+}
+```
+
+**After**
+
+```json
+{
+  "devDependencies": {
+    "@sveltejs/kit": "3.0.1"
+  }
+}
+```
+
+Follow [Migrating to SvelteKit v3](https://svelte.dev/docs/kit/migrating-to-sveltekit-3) for the SvelteKit side of the upgrade.
+
 ## 0.0.10
 
 ### `syncHtmlLang` renamed to `syncHtmlAttributes`, and it now also sets `dir`

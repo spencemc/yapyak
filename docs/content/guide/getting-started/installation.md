@@ -58,7 +58,7 @@ To use yapyak, install the Vite plugin, a framework adapter, and optionally an S
 - Node.js 22.22 or later
 - Vite 8 or later
 - Svelte 5 or later
-- SvelteKit 2 or later
+- SvelteKit 3 or later
 {% /when %}
 {% /switch %}
 {% /when %}
@@ -1493,13 +1493,6 @@ Every navigation re-runs the middleware and re-renders the layout, so `<html lan
 {% /switch %}
 
 {% switch group="adapter" %}
-{% when value="sveltekit" %}
-Tell TypeScript about yapyak's generated types:
-
-```diff [src/app.d.ts]
-+/// <reference path="../.yapyak/types.d.ts" />
-```
-{% /when %}
 {% when value="nuxt" %}
 {% /when %}
 {% else %}
