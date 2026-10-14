@@ -19,6 +19,7 @@
   "include": [
     ".yapyak/types.d.ts",
     "src",
-    "src/**/*.vue"
+    "src/**/*.vue",
+    "yapyak.config.ts"
   ]
 }

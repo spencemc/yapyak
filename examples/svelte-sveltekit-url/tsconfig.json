@@ -6,6 +6,7 @@
   "include": [
     ".yapyak/types.d.ts",
     "src",
-    "vite.config.ts"
+    "vite.config.ts",
+    "yapyak.config.ts"
   ]
 }

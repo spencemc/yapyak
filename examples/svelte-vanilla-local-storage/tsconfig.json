@@ -19,6 +19,7 @@
   "include": [
     ".yapyak/types.d.ts",
     "src",
-    "src/**/*.svelte"
+    "src/**/*.svelte",
+    "yapyak.config.ts"
   ]
 }

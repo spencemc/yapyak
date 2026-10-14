@@ -26,6 +26,7 @@
     ".react-router/types",
     ".yapyak/types.d.ts",
     "app",
-    "vite.config.ts"
+    "vite.config.ts",
+    "yapyak.config.ts"
   ]
 }
