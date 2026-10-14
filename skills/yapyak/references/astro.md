@@ -133,7 +133,7 @@ Every navigation re-renders the layout, so both attributes stay correct.
 
 ```astro
 ---
-import { getLocale, locales } from 'yapyak';
+import { format, getLocale, locales } from 'yapyak';
 
 const current = getLocale();
 ---
@@ -141,7 +141,7 @@ const current = getLocale();
 <div>
   {locales.map((value) => (
     <a href={`/${value}`} aria-current={value === current ? 'page' : undefined}>
-      {value}
+      {format.in(value).displayName(value, 'language')}
     </a>
   ))}
 </div>

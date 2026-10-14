@@ -80,12 +80,12 @@ Subscribe to no store: a component that calls `t()` reads the locale `$state` ru
 ```svelte
 <script lang="ts">
   import { locale } from '@yapyak/svelte';
-  import { locales } from 'yapyak';
+  import { format, locales } from 'yapyak';
 </script>
 
 <select bind:value={locale.current}>
   {#each locales as value (value)}
-    <option {value}>{new Intl.DisplayNames(value, { type: 'language' }).of(value)}</option>
+    <option {value}>{format.in(value).displayName(value, 'language')}</option>
   {/each}
 </select>
 ```

@@ -91,7 +91,7 @@ function Root() {
 
 ```tsx
 import { useLocale } from '@yapyak/react';
-import { locales, parseLocale } from 'yapyak';
+import { format, locales, parseLocale } from 'yapyak';
 
 export function LocaleSwitcher() {
   const [locale, setLocale] = useLocale();
@@ -108,7 +108,7 @@ export function LocaleSwitcher() {
     >
       {locales.map((value) => (
         <option key={value} value={value}>
-          {new Intl.DisplayNames(value, { type: 'language' }).of(value)}
+          {format.in(value).displayName(value, 'language')}
         </option>
       ))}
     </select>

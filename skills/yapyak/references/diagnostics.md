@@ -59,3 +59,4 @@ Every `YAPnnnn` diagnostic the compiler, the CLI, and the runtime report. An err
 | `YAP0053` | Entry unused | warning | A locale file holds a translation no `t()` call in that file uses | Delete the entry, or restore the call |
 | `YAP0054` | Currency unsupported | warning | An ICU `currency` style names a code outside `Intl.supportedValuesOf('currency')` | Use an ISO 4217 code; a non-standard code still renders as `<value> <code>` |
 | `YAP0055` | Module scope call | warning | `t()` is at module scope | Move the call into the function that renders the text |
+| `YAP0056` | Unsupported display name | warning | `format.displayName` gets a code `Intl` rejects for the type | Pass a canonical code of that type, such as `sv`, `DE`, or `EUR` |

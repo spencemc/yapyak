@@ -193,11 +193,13 @@ Format values outside a message with `format` from `yapyak`. Every call reads th
 | `format.dateTime(value, options)` | `Intl.DateTimeFormat` | `dateStyle` and `timeStyle` presets, or field options |
 | `format.list(items, options)` | `Intl.ListFormat` | Run each item through `t()` first |
 | `format.relativeTime(value, unit, options)` | `Intl.RelativeTimeFormat` | Negative is past; `numeric: 'auto'` gives `yesterday` |
+| `format.displayName(code, type, options)` | `Intl.DisplayNames` | `type` is `language`, `region`, `script`, `currency`, `calendar`, or `dateTimeField` |
 | `format.in(locale)` | | Returns a `format` scoped to a forced locale |
 
 - Use `format.*` for a value outside a message and an ICU sub-format for a value inside one.
 - Type a currency code as `Currency` from `yapyak`; narrow user input with `isCurrency(value)`.
-- An unsupported currency, unit, or time zone renders a fallback instead of throwing and reports `YAP0035`, `YAP0036`, or `YAP0037`.
+- Label a locale switcher with `format.in(value).displayName(value, 'language')`, never with a `t()` call per language.
+- An unsupported currency, unit, time zone, or display-name code renders a fallback instead of throwing and reports `YAP0035`, `YAP0036`, `YAP0037`, or `YAP0056`.
 
 ## The active locale
 

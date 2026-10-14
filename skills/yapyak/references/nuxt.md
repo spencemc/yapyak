@@ -58,12 +58,12 @@ Any `.ts` or `.js` file, plus `<script>` blocks and `<template>` expressions in 
 ```vue
 <script setup lang="ts">
 import { locale } from '@yapyak/vue';
-import { locales } from 'yapyak';
+import { format, locales } from 'yapyak';
 </script>
 
 <template>
   <button v-for="value in locales" :key="value" :disabled="value === locale" @click="locale = value">
-    {{ value }}
+    {{ format.in(value).displayName(value, 'language') }}
   </button>
 </template>
 ```

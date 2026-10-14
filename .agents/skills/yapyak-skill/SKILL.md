@@ -5,7 +5,7 @@ metadata:
   internal: true
 ---
 
-`skills/yapyak` is the public Agent Skill, installed by users through `npx skills add yapyak/yapyak` or `/plugin install yapyak --marketplace yapyak/yapyak`. Land a behavior change and its line in the skill in the same commit.
+`skills/yapyak` is the public Agent Skill, installed by users through `npx skills add yapyak/yapyak` or `/plugin install yapyak --marketplace yapyak/yapyak`. Land a behavior change and its line in the skill in the same change: one commit, or one series of commits per [[yapyak-commit]].
 
 ### Layout
 
@@ -22,7 +22,7 @@ Never add a skill directory outside `skills/` and `.agents/skills/` → put a pu
 
 ### Change-to-edit table
 
-Edit the skill in the same commit as the change. A change matching several rows edits every matching place.
+Edit the skill in the same change. A change matching several rows edits every matching place.
 
 | Change | Edit |
 | --- | --- |
@@ -40,7 +40,7 @@ Edit the skill in the same commit as the change. A change matching several rows 
 
 A changeset for `yapyak`, `@yapyak/vite`, or an adapter that touches none of the rows above needs no skill edit.
 
-Bump `version` in `skills/.claude-plugin/plugin.json` in every commit that changes a file under `skills/`: patch for a corrected or reworded rule, minor for a new rule, section, or reference file. The skill's version is independent of the npm packages.
+Bump the patch digit of `version` in `skills/.claude-plugin/plugin.json` in every change that touches a file under `skills/`, whatever the change. The skill is `0.0.x` until yapyak reaches 1.0.0; minor and major follow the same release decision as the packages, per [[yapyak-package]] § Changeset bumps.
 
 ### Reference file section order
 

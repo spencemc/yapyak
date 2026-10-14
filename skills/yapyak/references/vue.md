@@ -84,13 +84,13 @@ import { t } from 'yapyak';
 ```vue
 <script setup lang="ts">
 import { locale } from '@yapyak/vue';
-import { locales } from 'yapyak';
+import { format, locales } from 'yapyak';
 </script>
 
 <template>
   <select v-model="locale">
     <option v-for="value in locales" :key="value" :value="value">
-      {{ new Intl.DisplayNames(value, { type: 'language' }).of(value) }}
+      {{ format.in(value).displayName(value, 'language') }}
     </option>
   </select>
 </template>
