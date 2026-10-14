@@ -53,7 +53,7 @@ export default defineConfig({
 });
 ```
 
-4. Add `.yapyak/types.d.ts` to `include` in `tsconfig.json`. Nuxt adds it on its own.
+4. Add `.yapyak/types.d.ts` and `yapyak.config.ts` to `include` in `tsconfig.json`. Nuxt adds the types on its own.
 5. Add the first target locale: `npx yapyak add sv`. This creates `locales/sv.json` and regenerates the `Locale` type.
 6. Add `.yapyak/` to `.gitignore`. It holds the orphan cache; the locale files are the committed source of truth.
 

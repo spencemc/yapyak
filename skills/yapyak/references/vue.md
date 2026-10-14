@@ -34,7 +34,7 @@ export default defineConfig({
 
 ### Types
 
-Add `.yapyak/types.d.ts` to `include` in `tsconfig.json`.
+Add `.yapyak/types.d.ts` and `yapyak.config.ts` to `include` in `tsconfig.json`.
 
 ### Where `t()` works
 

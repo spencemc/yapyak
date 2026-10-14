@@ -42,7 +42,7 @@ Set `persistence: 'url'` for a locale path segment. Set `syncHtmlAttributes: tru
 
 ### Types
 
-Add `.yapyak/types.d.ts` to `include` in `tsconfig.json`.
+Add `.yapyak/types.d.ts` and `yapyak.config.ts` to `include` in `tsconfig.json`.
 
 ### Where `t()` works
 

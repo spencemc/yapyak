@@ -37,7 +37,7 @@ Use `'cookie'` or `'url'`; local storage flashes `defaultLocale` on every server
 
 ### Types
 
-Add `.yapyak/types.d.ts` to `include` in `tsconfig.json`.
+Add `.yapyak/types.d.ts` and `yapyak.config.ts` to `include` in `tsconfig.json`.
 
 ### Component
 
