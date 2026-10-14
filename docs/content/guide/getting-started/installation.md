@@ -1496,12 +1496,13 @@ Every navigation re-runs the middleware and re-renders the layout, so `<html lan
 {% when value="nuxt" %}
 {% /when %}
 {% else %}
-Tell TypeScript about yapyak's generated types:
+Tell TypeScript about yapyak's generated types and the config file:
 
 ```diff [tsconfig.json]
  {
    "include": [
-+    ".yapyak/types.d.ts"
++    ".yapyak/types.d.ts",
++    "yapyak.config.ts"
    ]
  }
 ```
