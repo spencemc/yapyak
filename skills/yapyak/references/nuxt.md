@@ -5,7 +5,7 @@ Nuxt 4.1+. Components, the binding, the switcher, and rich text are the Vue ones
 ### Packages
 
 ```bash
-npx nuxi module add @yapyak/nuxt
+npx nuxi module add yapyak
 ```
 
 Add a translator package separately: `npm install @yapyak/anthropic`.

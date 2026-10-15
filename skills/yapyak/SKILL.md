@@ -33,7 +33,7 @@ Requirements: Node.js 22.22+, Vite 8+. Frameworks: React 19+, Vue 3.4+, Svelte 5
 | React Router | add `@yapyak/react-router` | `plugins: [reactRouter(), yapyak()]` | `react()` |
 | TanStack Start | add `@yapyak/tanstack-start` | `plugins: [tanstackStart(), react(), yapyak()]` | `react()` |
 | Vue | `npm install yapyak @yapyak/vite @yapyak/vue` | `plugins: [vue(), yapyak()]` | `vue()` from `@yapyak/vue/processor` |
-| Nuxt | `npx nuxi module add @yapyak/nuxt` | `modules: ['@yapyak/nuxt']` | `nuxt()` from `@yapyak/nuxt/processor` |
+| Nuxt | `npx nuxi module add yapyak` | `modules: ['@yapyak/nuxt']` | `nuxt()` from `@yapyak/nuxt/processor` |
 | Svelte | `npm install yapyak @yapyak/vite @yapyak/svelte` | `plugins: [svelte(), yapyak()]` | `svelte()` from `@yapyak/svelte/processor` |
 | SvelteKit | add `@yapyak/sveltekit` | `plugins: [sveltekit(), yapyak()]` | `svelte()` |
 | Astro | `npm install yapyak @yapyak/astro` | `integrations: [yapyak()]` from `@yapyak/astro/integration` | `astro()` from `@yapyak/astro/processor` |

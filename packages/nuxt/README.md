@@ -7,7 +7,7 @@ Nuxt module for yapyak.
 ## Installation
 
 ```bash
-npx nuxi module add @yapyak/nuxt
+npx nuxi module add yapyak
 ```
 
 ## Documentation

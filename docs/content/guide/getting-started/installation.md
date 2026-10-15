@@ -223,17 +223,17 @@ npm install yapyak @yapyak/vite @yapyak/vue @yapyak/claude-code
 {% switch group="packageManager" %}
 {% when value="pnpm" %}
 ```bash
-pnpm dlx nuxi module add @yapyak/nuxt
+pnpm dlx nuxi module add yapyak
 ```
 {% /when %}
 {% when value="npm" %}
 ```bash
-npx nuxi module add @yapyak/nuxt
+npx nuxi module add yapyak
 ```
 {% /when %}
 {% when value="bun" %}
 ```bash
-bunx nuxi module add @yapyak/nuxt
+bunx nuxi module add yapyak
 ```
 {% /when %}
 {% /switch %}
@@ -242,17 +242,17 @@ bunx nuxi module add @yapyak/nuxt
 {% switch group="packageManager" %}
 {% when value="pnpm" %}
 ```bash
-pnpm dlx nuxi module add @yapyak/nuxt
+pnpm dlx nuxi module add yapyak
 ```
 {% /when %}
 {% when value="npm" %}
 ```bash
-npx nuxi module add @yapyak/nuxt
+npx nuxi module add yapyak
 ```
 {% /when %}
 {% when value="bun" %}
 ```bash
-bunx nuxi module add @yapyak/nuxt
+bunx nuxi module add yapyak
 ```
 {% /when %}
 {% /switch %}
@@ -267,17 +267,17 @@ npm install @yapyak/anthropic
 {% switch group="packageManager" %}
 {% when value="pnpm" %}
 ```bash
-pnpm dlx nuxi module add @yapyak/nuxt
+pnpm dlx nuxi module add yapyak
 ```
 {% /when %}
 {% when value="npm" %}
 ```bash
-npx nuxi module add @yapyak/nuxt
+npx nuxi module add yapyak
 ```
 {% /when %}
 {% when value="bun" %}
 ```bash
-bunx nuxi module add @yapyak/nuxt
+bunx nuxi module add yapyak
 ```
 {% /when %}
 {% /switch %}
@@ -292,17 +292,17 @@ npm install @yapyak/openai
 {% switch group="packageManager" %}
 {% when value="pnpm" %}
 ```bash
-pnpm dlx nuxi module add @yapyak/nuxt
+pnpm dlx nuxi module add yapyak
 ```
 {% /when %}
 {% when value="npm" %}
 ```bash
-npx nuxi module add @yapyak/nuxt
+npx nuxi module add yapyak
 ```
 {% /when %}
 {% when value="bun" %}
 ```bash
-bunx nuxi module add @yapyak/nuxt
+bunx nuxi module add yapyak
 ```
 {% /when %}
 {% /switch %}
@@ -317,17 +317,17 @@ npm install @yapyak/gemini
 {% switch group="packageManager" %}
 {% when value="pnpm" %}
 ```bash
-pnpm dlx nuxi module add @yapyak/nuxt
+pnpm dlx nuxi module add yapyak
 ```
 {% /when %}
 {% when value="npm" %}
 ```bash
-npx nuxi module add @yapyak/nuxt
+npx nuxi module add yapyak
 ```
 {% /when %}
 {% when value="bun" %}
 ```bash
-bunx nuxi module add @yapyak/nuxt
+bunx nuxi module add yapyak
 ```
 {% /when %}
 {% /switch %}
@@ -342,17 +342,17 @@ npm install @yapyak/ollama
 {% switch group="packageManager" %}
 {% when value="pnpm" %}
 ```bash
-pnpm dlx nuxi module add @yapyak/nuxt
+pnpm dlx nuxi module add yapyak
 ```
 {% /when %}
 {% when value="npm" %}
 ```bash
-npx nuxi module add @yapyak/nuxt
+npx nuxi module add yapyak
 ```
 {% /when %}
 {% when value="bun" %}
 ```bash
-bunx nuxi module add @yapyak/nuxt
+bunx nuxi module add yapyak
 ```
 {% /when %}
 {% /switch %}
