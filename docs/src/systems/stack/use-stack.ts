@@ -16,7 +16,7 @@ export function useStack({
 }: UseStackOptions = {}): UseStackReturn {
   const id = useId();
 
-  const lastFocusedElement = useRef<Element | null>(
+  const lastFocusedElementRef = useRef<Element | null>(
     typeof document === 'undefined' ? null : document.activeElement,
   );
 
@@ -29,7 +29,7 @@ export function useStack({
     if (isLeaving) {
       return;
     }
-    return stackContext.register(id, lastFocusedElement.current);
+    return stackContext.register(id, lastFocusedElementRef.current);
   }, [
     isLeaving,
   ]);

@@ -26,7 +26,7 @@ export function Animate(props: AnimateProps) {
   const parentState = useAnimateContext();
   const isOpen = inProp && parentState !== 'exit';
 
-  const element = useRef<HTMLDivElement>(null);
+  const elementRef = useRef<HTMLDivElement>(null);
   const [state, setState] = useState<AnimateState | 'unmounted'>(
     isOpen ? 'enter' : 'unmounted',
   );
@@ -73,7 +73,7 @@ export function Animate(props: AnimateProps) {
     if (state !== 'exit') {
       return;
     }
-    const $element = element.current;
+    const $element = elementRef.current;
     if (!$element) {
       setState('unmounted');
       return;
@@ -110,7 +110,7 @@ export function Animate(props: AnimateProps) {
     return null;
   }
   const childProps: AnimateChildProps = {
-    ref: element,
+    ref: elementRef,
   };
   if (state === 'enter') {
     childProps['data-animate'] = 'enter';

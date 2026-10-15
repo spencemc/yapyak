@@ -32,7 +32,7 @@ export function InstallationWizardGroup(props: InstallationWizardGroupProps) {
   const activeFramework = get('framework');
   const isCompact = useMediaQuery('(max-width: 640px)');
 
-  const radioGroupElement = useRef<HTMLDivElement>(null);
+  const radioGroupElementRef = useRef<HTMLDivElement>(null);
   const previousValueRef = useRef<string | null>(null);
   const [indicator, setIndicator] = useState<IndicatorState | null>(null);
   const [isReady, setIsReady] = useState(false);
@@ -41,7 +41,7 @@ export function InstallationWizardGroup(props: InstallationWizardGroupProps) {
   const activeValue = get(groupId);
 
   useLayoutEffect(() => {
-    const $element = radioGroupElement.current;
+    const $element = radioGroupElementRef.current;
     if ($element === null) {
       return;
     }
@@ -147,7 +147,7 @@ export function InstallationWizardGroup(props: InstallationWizardGroupProps) {
           className={styles.RadioGroup}
           name={`installation-wizard-${groupId}`}
           onChange={handleChange}
-          ref={radioGroupElement}
+          ref={radioGroupElementRef}
           value={activeValue}
         >
           {indicator && (

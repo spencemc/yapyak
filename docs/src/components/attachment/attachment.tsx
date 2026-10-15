@@ -36,9 +36,9 @@ export function Attachment(props: AttachmentProps) {
     ...restProps
   } = props;
 
-  const element = useRef<HTMLDivElement>(null);
+  const elementRef = useRef<HTMLDivElement>(null);
 
-  const anchoredPosition = useAnchoredPosition(element, targetElement, {
+  const anchoredPosition = useAnchoredPosition(elementRef, targetElement, {
     alignment,
     arrow,
     arrowSafeOffset: 8,
@@ -72,7 +72,7 @@ export function Attachment(props: AttachmentProps) {
       data-docked={anchoredPosition.docked}
       data-placement={anchoredPosition.placement}
       ref={[
-        element,
+        elementRef,
         ref,
       ]}
       style={[

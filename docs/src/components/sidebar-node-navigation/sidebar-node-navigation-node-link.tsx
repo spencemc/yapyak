@@ -17,14 +17,14 @@ export function SidebarNodeNavigationNodeLink(
 ) {
   const { className, sidebarNode, ...restProps } = props;
   const isDeprecated = sidebarNode.badge?.variant === 'deprecated';
-  const element = useRef<HTMLAnchorElement>(null);
+  const elementRef = useRef<HTMLAnchorElement>(null);
   const initialPathname = useLocation({
     select: (location) => location.pathname,
   });
   const isActiveOnMountRef = useRef(initialPathname === sidebarNode.href);
 
   useEffect(() => {
-    const $element = element.current;
+    const $element = elementRef.current;
     if (!isActiveOnMountRef.current || $element === null) {
       return;
     }
@@ -65,7 +65,7 @@ export function SidebarNodeNavigationNodeLink(
       ]}
       data-deprecated={isDeprecated}
       data-kind="link"
-      ref={element}
+      ref={elementRef}
       to={sidebarNode.href}
     >
       {sidebarNode.label}

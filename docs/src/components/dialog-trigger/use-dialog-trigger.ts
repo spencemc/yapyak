@@ -45,7 +45,7 @@ export function useDialogTrigger(
     shortcut,
   } = options;
 
-  const targetElement = useRef<HTMLButtonElement>(null);
+  const targetElementRef = useRef<HTMLButtonElement>(null);
   const id = useId();
   const drawer = useDrawer(initialOpen, {
     onClose,
@@ -82,7 +82,7 @@ export function useDialogTrigger(
     'aria-expanded': drawer.isOpen,
     'aria-haspopup': 'dialog' as const,
     onClick: handleTriggerClick,
-    ref: targetElement,
+    ref: targetElementRef,
   };
 
   const dialogProps = {

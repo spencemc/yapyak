@@ -47,7 +47,7 @@ export function ListboxBase(props: ListboxBaseProps) {
 
   const generatedId = useId();
   const listboxId = id ?? generatedId;
-  const element = useRef<HTMLDivElement>(null);
+  const elementRef = useRef<HTMLDivElement>(null);
   const typeaheadRef = useRef({
     buffer: '',
     timeout: 0,
@@ -74,11 +74,11 @@ export function ListboxBase(props: ListboxBaseProps) {
     `${listboxId}-option-${optionValue}`;
 
   const readOptionElements = () => {
-    if (element.current === null) {
+    if (elementRef.current === null) {
       return [];
     }
     return Array.from(
-      element.current.querySelectorAll<HTMLElement>(OPTION_SELECTOR),
+      elementRef.current.querySelectorAll<HTMLElement>(OPTION_SELECTOR),
     ).filter((optionElement) => optionElement.ariaDisabled !== 'true');
   };
 
@@ -124,7 +124,7 @@ export function ListboxBase(props: ListboxBaseProps) {
 
   const pageHighlight = (direction: 'down' | 'up') => {
     const optionElements = readOptionElements();
-    if (element.current === null || optionElements.length === 0) {
+    if (elementRef.current === null || optionElements.length === 0) {
       return;
     }
     const currentIndex = optionElements.findIndex(
@@ -141,7 +141,7 @@ export function ListboxBase(props: ListboxBaseProps) {
       return;
     }
 
-    const viewport = element.current.clientHeight;
+    const viewport = elementRef.current.clientHeight;
     const fromTop = fromElement.offsetTop;
     let targetIndex = fromIndex;
     if (direction === 'down') {
@@ -308,7 +308,7 @@ export function ListboxBase(props: ListboxBaseProps) {
       onFocus={handleFocus}
       onKeyDown={handleKeyDown}
       onPointerMove={handlePointerMove}
-      ref={element}
+      ref={elementRef}
       role="listbox"
       tabIndex={0}
     >

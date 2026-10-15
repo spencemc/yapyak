@@ -39,9 +39,9 @@ export function useStepFocus<T extends HTMLElement = HTMLElement>(
 
   const [search, setSearch] = useState('');
 
-  const element = useRef<T | null>(null);
+  const elementRef = useRef<T | null>(null);
 
-  const focusManager = useFocusManager(element);
+  const focusManager = useFocusManager(elementRef);
 
   const searchTimeout = useTimeoutHandle(
     () => {
@@ -57,7 +57,7 @@ export function useStepFocus<T extends HTMLElement = HTMLElement>(
       return;
     }
 
-    const $element = element.current;
+    const $element = elementRef.current;
 
     if ($element === null) {
       return;
@@ -148,7 +148,7 @@ export function useStepFocus<T extends HTMLElement = HTMLElement>(
   return {
     props: {
       onKeyDown: handleKeyDown,
-      ref: element,
+      ref: elementRef,
     },
   };
 }

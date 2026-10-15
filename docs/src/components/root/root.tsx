@@ -13,12 +13,12 @@ export type RootProps = {
 export function Root(props: RootProps) {
   const { children } = props;
 
-  const element = useRef<HTMLDivElement>(null);
+  const elementRef = useRef<HTMLDivElement>(null);
 
   return (
-    <PortalProvider element={element}>
+    <PortalProvider element={elementRef}>
       <StackProvider>
-        <Box ref={element}>
+        <Box ref={elementRef}>
           <Stack>{children}</Stack>
         </Box>
       </StackProvider>

@@ -29,7 +29,7 @@ export function RadioGroupBase(props: RadioGroupBaseProps) {
     ...restProps
   } = props;
 
-  const generatedName = useId();
+  const generatedId = useId();
 
   const [value, setValue] = useControllableState<string>({
     defaultValue,
@@ -41,7 +41,7 @@ export function RadioGroupBase(props: RadioGroupBaseProps) {
     <RadioGroupContext
       value={{
         disabled,
-        name: name ?? generatedName,
+        name: name ?? generatedId,
         setValue,
         value,
       }}

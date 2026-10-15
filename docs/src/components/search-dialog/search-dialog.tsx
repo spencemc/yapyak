@@ -24,7 +24,7 @@ export type SearchDialogProps = Omit<DialogProps, 'onSelect'> & {
 export function SearchDialog(props: SearchDialogProps) {
   const { className, searchData, onClose, ...restProps } = props;
 
-  const inputElement = useRef<HTMLInputElement>(null);
+  const inputElementRef = useRef<HTMLInputElement>(null);
   const handleSelect = useSearchNavigation();
   const search = useSearch({
     listboxId: LISTBOX_ID,
@@ -33,7 +33,7 @@ export function SearchDialog(props: SearchDialogProps) {
   });
 
   useLayoutEffect(() => {
-    inputElement.current?.focus();
+    inputElementRef.current?.focus();
   }, []);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -43,7 +43,7 @@ export function SearchDialog(props: SearchDialogProps) {
   const handleDialogPointerDown = (event: PointerEvent) => {
     if (
       event.pointerType === 'mouse' &&
-      event.target !== inputElement.current
+      event.target !== inputElementRef.current
     ) {
       event.preventDefault();
     }
@@ -78,7 +78,7 @@ export function SearchDialog(props: SearchDialogProps) {
           onChange={handleInputChange}
           onKeyDown={search.handleInputKeyDown}
           placeholder={t('Search...')}
-          ref={inputElement}
+          ref={inputElementRef}
           role="combobox"
           value={search.query}
         />

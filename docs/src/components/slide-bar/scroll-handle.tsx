@@ -21,7 +21,7 @@ export type ScrollHandleProps = BoxProps & {
 export function ScrollHandle(props: ScrollHandleProps) {
   const { className, disabled, onPerform, placement, ...restProps } = props;
 
-  const element = useRef<HTMLDivElement>(null);
+  const elementRef = useRef<HTMLDivElement>(null);
 
   const { hoverIntervalProps } = useHoverInterval(onPerform, {
     accelerationFactor: 1.1,
@@ -34,7 +34,7 @@ export function ScrollHandle(props: ScrollHandleProps) {
     event.preventDefault();
   };
 
-  useEventListener(element, 'wheel', handleWheel, {
+  useEventListener(elementRef, 'wheel', handleWheel, {
     passive: false,
   });
 
@@ -47,7 +47,7 @@ export function ScrollHandle(props: ScrollHandleProps) {
         className,
       ]}
       data-placement={placement}
-      ref={element}
+      ref={elementRef}
     >
       <Icon
         className={styles.Chevron}

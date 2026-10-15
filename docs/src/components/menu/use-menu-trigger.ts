@@ -32,7 +32,7 @@ export function useMenuTrigger(
 ): UseMenuTriggerReturn {
   const { initialOpen = false, onClose, onOpen } = options;
 
-  const targetElement = useRef<HTMLButtonElement>(null);
+  const targetElementRef = useRef<HTMLButtonElement>(null);
   const id = useId();
   const drawer = useDrawer(initialOpen, {
     onClose,
@@ -66,7 +66,7 @@ export function useMenuTrigger(
     menuProps: {
       id,
       onClose: drawer.close,
-      targetElement,
+      targetElement: targetElementRef,
     },
     open: drawer.isOpen,
     triggerProps: {
@@ -75,7 +75,7 @@ export function useMenuTrigger(
       'aria-haspopup': 'menu',
       onClick: handleClick,
       onKeyDown: handleKeyDown,
-      ref: targetElement,
+      ref: targetElementRef,
     },
   };
 }

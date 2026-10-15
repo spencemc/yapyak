@@ -19,23 +19,23 @@ const SCROLL_STEP = 4;
 export function SlideBar(props: SlideBarProps) {
   const { children, className, innerRef, ...restProps } = props;
 
-  const innerElement = useRef<HTMLDivElement>(null);
+  const innerElementRef = useRef<HTMLDivElement>(null);
 
-  const scrollOffset = useScrollOffset(innerElement);
+  const scrollOffset = useScrollOffset(innerElementRef);
 
   const hasStartScrollOffset = scrollOffset.top > 0;
   const hasEndScrollOffset = scrollOffset.bottom > 0;
 
-  const isWheelScrolling = useIsWheelScrolling(innerElement);
+  const isWheelScrolling = useIsWheelScrolling(innerElementRef);
 
   const handleStartScrollHandlePerform = () => {
-    innerElement.current?.scrollBy({
+    innerElementRef.current?.scrollBy({
       top: -SCROLL_STEP,
     });
   };
 
   const handleEndScrollHandlePerform = () => {
-    innerElement.current?.scrollBy({
+    innerElementRef.current?.scrollBy({
       top: SCROLL_STEP,
     });
   };
@@ -55,10 +55,10 @@ export function SlideBar(props: SlideBarProps) {
         ref={
           innerRef
             ? [
-                innerElement,
+                innerElementRef,
                 innerRef,
               ]
-            : innerElement
+            : innerElementRef
         }
       >
         {children}

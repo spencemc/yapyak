@@ -33,7 +33,7 @@ export type MobileBarProps = BoxProps & {
 
 export function MobileBar(props: MobileBarProps) {
   const { className, mode, onModeChange, ...restProps } = props;
-  const inputElement = useRef<HTMLInputElement>(null);
+  const inputElementRef = useRef<HTMLInputElement>(null);
   const [hasSearched, setHasSearched] = useState(false);
   const searchData = useSearchData(hasSearched);
 
@@ -62,7 +62,7 @@ export function MobileBar(props: MobileBarProps) {
     flushSync(() => {
       onModeChange('search');
     });
-    inputElement.current?.focus({
+    inputElementRef.current?.focus({
       preventScroll: true,
     });
   };
@@ -110,7 +110,7 @@ export function MobileBar(props: MobileBarProps) {
               onChange={handleInputChange}
               onKeyDown={search.handleInputKeyDown}
               placeholder={t('Search...')}
-              ref={inputElement}
+              ref={inputElementRef}
               role="combobox"
               value={search.query}
             />

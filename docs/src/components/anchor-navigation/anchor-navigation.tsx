@@ -21,7 +21,7 @@ export type AnchorNavigationProps = BoxProps<'nav'> & {
 export function AnchorNavigation(props: AnchorNavigationProps) {
   const { anchors, className, indicator = false, ...restProps } = props;
 
-  const element = useRef<HTMLElement | null>(null);
+  const elementRef = useRef<HTMLElement | null>(null);
   const itemElementsRef = useRef(new Map<string, HTMLAnchorElement>());
   const lockedIdRef = useRef<string | undefined>(undefined);
   const wasVisibleRef = useRef(false);
@@ -126,7 +126,7 @@ export function AnchorNavigation(props: AnchorNavigationProps) {
       wasVisibleRef.current = false;
       return;
     }
-    const $element = element.current;
+    const $element = elementRef.current;
     const itemElement = itemElementsRef.current.get(activeId);
     if (!$element || !itemElement) {
       return;
@@ -178,7 +178,7 @@ export function AnchorNavigation(props: AnchorNavigationProps) {
       data-active={activeId !== undefined}
       data-animation-enabled={isAnimationEnabled}
       data-indicator={indicator}
-      ref={element}
+      ref={elementRef}
     >
       <Box className={styles.Rail}>
         <Box

@@ -20,14 +20,14 @@ type IndicatorState = {
 
 export function Navigation(props: NavigationProps) {
   const { children, className, ...restProps } = props;
-  const element = useRef<HTMLElement>(null);
+  const elementRef = useRef<HTMLElement>(null);
   const previousPathnameRef = useRef<string | null>(null);
   const [indicator, setIndicator] = useState<IndicatorState | null>(null);
   const [isAnimating, setIsAnimating] = useState(false);
   const location = useLocation();
 
   useLayoutEffect(() => {
-    const $element = element.current;
+    const $element = elementRef.current;
     if ($element === null) {
       return;
     }
@@ -93,7 +93,7 @@ export function Navigation(props: NavigationProps) {
         className,
       ]}
       data-animating={isAnimating}
-      ref={element}
+      ref={elementRef}
       style={
         indicator
           ? {
