@@ -531,6 +531,38 @@ Name them `--[root-class]-[role]`:
 
 All component/route CSS is wrapped in `@layer components`. Lets design tokens and resets sit in their own layers without specificity wars.
 
+#### Logical properties
+
+Write every direction-dependent property in its logical form. `useLogicalProperties` enforces it with `direction: "ltr"`.
+
+| Physical | Logical |
+| --- | --- |
+| `width`, `height` | `inline-size`, `block-size` |
+| `min-width`, `max-width`, `min-height`, `max-height` | `min-inline-size`, `max-inline-size`, `min-block-size`, `max-block-size` |
+| `top`, `bottom` | `inset-block-start`, `inset-block-end` |
+| `left`, `right` | `inset-inline-start`, `inset-inline-end` |
+| `margin-top`, `margin-bottom`, `margin-left`, `margin-right` | `margin-block-start`, `margin-block-end`, `margin-inline-start`, `margin-inline-end` |
+| `padding-*` and `border-*` sides | the same four suffixes |
+| `border-top-left-radius`, `border-top-right-radius`, `border-bottom-left-radius`, `border-bottom-right-radius` | `border-start-start-radius`, `border-start-end-radius`, `border-end-start-radius`, `border-end-end-radius` |
+| `text-align: left`, `text-align: right` | `text-align: start`, `text-align: end` |
+| `float: left`, `float: right` | `float: inline-start`, `float: inline-end` |
+
+Set both sides with the pair shorthand: `margin-block: 0`, `padding-inline: var(--spacing-4)`, `inset: 0`.
+
+```css
+/* ✓ */
+.Indicator {
+  inline-size: var(--px);
+  inset-inline-start: calc((var(--spacing-4) + var(--px)) * -1);
+}
+
+/* ✗ */
+.Indicator {
+  width: var(--px);
+  left: calc((var(--spacing-4) + var(--px)) * -1);
+}
+```
+
 #### Use design tokens, never hardcoded values
 
 ```css
