@@ -102,6 +102,7 @@
         "useConsistentObjectKeys": "error",
         "useExhaustiveSwitchCases": "error",
         "useImportsFirst": "error",
+        "useNamedLayer": "error",
         "usePromiseRejectErrors": "error",
         "useReactNamingConvention": "error",
         "useSortedClasses": "error",
