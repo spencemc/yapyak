@@ -1,17 +1,17 @@
 @layer components {
   .ContentLayoutContentHeader {
     position: fixed;
-    top: var(--header-height);
-    right: 0;
-    left: 0;
+    inset-block-start: var(--header-height);
+    inset-inline-start: 0;
+    inset-inline-end: 0;
     z-index: var(--z-index-1);
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
-    height: var(--content-header-height);
+    block-size: var(--content-header-height);
     padding: 0 var(--spacing-4-5);
     background-color: var(--canvas);
-    border-bottom: var(--px) solid var(--rule);
+    border-block-end: var(--px) solid var(--rule);
 
     :is(.Start, .End) {
       display: flex;
@@ -31,8 +31,11 @@
     }
 
     @media (min-width: 1024px) {
-      right: var(--layout-side-bleed);
-      left: calc(var(--layout-side-bleed) + var(--layout-sidebar-width));
+      inset-inline-start: calc(
+        var(--layout-side-bleed) +
+        var(--layout-sidebar-width)
+      );
+      inset-inline-end: var(--layout-side-bleed);
       grid-template-columns: 1fr;
     }
 

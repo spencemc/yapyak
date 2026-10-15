@@ -18,10 +18,10 @@
 
       .TabIndicatorBar {
         position: absolute;
-        bottom: 0;
-        left: 0;
-        width: calc(100% / 4);
-        height: var(--px);
+        inset-block-end: 0;
+        inset-inline-start: 0;
+        inline-size: calc(100% / 4);
+        block-size: var(--px);
         pointer-events: none;
         background-color: var(--brand);
         transform: translateX(calc(var(--demo-editor-tab-index) * 100%));
@@ -39,8 +39,8 @@
     .PreformattedText {
       padding: var(--spacing-4);
       overflow: hidden;
-      border-bottom-right-radius: var(--border-radius-md);
-      border-bottom-left-radius: var(--border-radius-md);
+      border-end-start-radius: var(--border-radius-md);
+      border-end-end-radius: var(--border-radius-md);
       mask-image: linear-gradient(
         to right,
         black 0,

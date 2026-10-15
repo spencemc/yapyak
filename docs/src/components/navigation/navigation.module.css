@@ -14,10 +14,10 @@
 
     .Indicator {
       position: absolute;
-      top: var(--navigation-indicator-y);
-      left: var(--navigation-indicator-x);
-      width: var(--navigation-indicator-width);
-      height: var(--navigation-indicator-height);
+      inset-block-start: var(--navigation-indicator-y);
+      inset-inline-start: var(--navigation-indicator-x);
+      inline-size: var(--navigation-indicator-width);
+      block-size: var(--navigation-indicator-height);
       overflow: hidden;
       pointer-events: none;
       background-color: var(--brand);
@@ -29,12 +29,12 @@
         --navigation-active-background-color: transparent;
 
         position: absolute;
-        top: calc(-1 * var(--navigation-indicator-y));
-        left: calc(-1 * var(--navigation-indicator-x));
+        inset-block-start: calc(-1 * var(--navigation-indicator-y));
+        inset-inline-start: calc(-1 * var(--navigation-indicator-x));
         display: flex;
         gap: var(--spacing-2);
         align-items: center;
-        width: max-content;
+        inline-size: max-content;
         color: var(--brand-contrast);
       }
     }

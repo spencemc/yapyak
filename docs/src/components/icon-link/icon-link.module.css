@@ -4,8 +4,8 @@
     flex: none;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 44px;
+    inline-size: 44px;
+    block-size: 44px;
     font-size: 20px;
     color: var(--foreground-soft);
     outline: var(--spacing-2) solid transparent;

@@ -11,7 +11,7 @@
 
     .Line {
       display: block;
-      min-height: 1em;
+      min-block-size: 1em;
 
       .Text {
         color: inherit;

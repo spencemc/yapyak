@@ -4,8 +4,8 @@
     flex-direction: column;
     gap: var(--spacing-3);
     place-self: center;
-    width: 100%;
-    max-width: 1024px;
+    inline-size: 100%;
+    max-inline-size: 1024px;
 
     .Backdrop {
       display: none;
@@ -25,7 +25,7 @@
       display: grid;
       grid-template-columns: var(--layout-sidebar-width) minmax(0, 1fr);
       gap: 0;
-      max-width: var(--layout-max-width);
+      max-inline-size: var(--layout-max-width);
     }
 
     @media (min-width: 1324px) {

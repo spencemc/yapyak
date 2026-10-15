@@ -8,7 +8,7 @@
     display: flex;
     flex: 1;
     flex-direction: column;
-    min-height: 0;
+    min-block-size: 0;
 
     .Content {
       display: flex;

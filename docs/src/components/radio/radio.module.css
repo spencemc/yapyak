@@ -9,8 +9,8 @@
     .Indicator {
       display: inline-flex;
       flex: none;
-      width: 16px;
-      height: 16px;
+      inline-size: 16px;
+      block-size: 16px;
       background-color: var(--canvas);
       border: var(--px) solid var(--rule);
       border-radius: 50%;

@@ -2,6 +2,6 @@
   .InstallationWizard {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    inline-size: 100%;
   }
 }

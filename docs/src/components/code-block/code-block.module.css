@@ -19,9 +19,9 @@
       display: flex;
       gap: var(--spacing-3);
       align-items: center;
-      min-height: var(--code-block-row-height);
+      min-block-size: var(--code-block-row-height);
       padding: var(--spacing-3) var(--spacing-4);
-      border-bottom: var(--px) solid var(--rule);
+      border-block-end: var(--px) solid var(--rule);
 
       .PathText {
         overflow: hidden;
@@ -35,8 +35,8 @@
 
     .LabelText {
       position: absolute;
-      top: var(--spacing-3);
-      left: var(--spacing-4);
+      inset-block-start: var(--spacing-3);
+      inset-inline-start: var(--spacing-4);
       font-family: var(--font-family-mono);
       font-size: var(--font-size-xs);
       color: var(--foreground-softer);

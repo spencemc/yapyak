@@ -7,9 +7,9 @@
 
     > [data-kind="group"]:not([data-collapsible])
       + :is([data-kind="group"][data-collapsible], [data-kind="link"]) {
-      padding-top: var(--spacing-5);
-      margin-top: var(--spacing-3);
-      border-top: var(--px) solid var(--rule);
+      padding-block-start: var(--spacing-5);
+      margin-block-start: var(--spacing-3);
+      border-block-start: var(--px) solid var(--rule);
     }
   }
 }

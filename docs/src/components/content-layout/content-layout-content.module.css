@@ -2,15 +2,15 @@
   .ContentLayoutContent {
     display: flex;
     flex-direction: column;
-    padding-top: var(--content-header-height);
-    padding-bottom: var(--spacing-32);
+    padding-block-start: var(--content-header-height);
+    padding-block-end: var(--spacing-32);
 
     @media (min-width: 1024px) {
       grid-column: 2;
     }
 
     @media (min-width: 1324px) {
-      padding-top: 0;
+      padding-block-start: 0;
     }
   }
 }

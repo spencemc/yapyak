@@ -3,14 +3,14 @@
     display: flex;
     flex-direction: column;
     gap: var(--spacing-1);
-    max-width: calc(
+    max-inline-size: calc(
       var(--layout-sidebar-width) -
       var(--spacing-3) -
       var(--spacing-4)
     );
-    padding-top: var(--spacing-5);
-    margin-top: var(--spacing-3);
-    border-top: var(--px) solid var(--rule);
+    padding-block-start: var(--spacing-5);
+    margin-block-start: var(--spacing-3);
+    border-block-start: var(--px) solid var(--rule);
 
     :is(.PageActionButton, .PageActionLink) {
       display: flex;
@@ -35,8 +35,8 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 16px;
-        height: 16px;
+        inline-size: 16px;
+        block-size: 16px;
         color: inherit;
       }
 
@@ -49,7 +49,7 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        margin-left: auto;
+        margin-inline-start: auto;
         color: var(--foreground-softer);
       }
 
@@ -88,9 +88,9 @@
     }
 
     &:first-child {
-      padding-top: 0;
-      margin-top: 0;
-      border-top: 0;
+      padding-block-start: 0;
+      margin-block-start: 0;
+      border-block-start: 0;
     }
   }
 }

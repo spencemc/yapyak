@@ -7,7 +7,7 @@
     font-size: var(--font-size-xs);
     line-height: var(--line-height-normal);
     color: var(--foreground-soft);
-    border-left: var(--px) solid var(--rule);
+    border-inline-start: var(--px) solid var(--rule);
 
     .Line {
       display: contents;

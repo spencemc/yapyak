@@ -3,7 +3,7 @@
     display: list-item;
 
     & + & {
-      margin-top: var(--spacing-3);
+      margin-block-start: var(--spacing-3);
     }
 
     &::marker {

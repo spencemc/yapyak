@@ -20,7 +20,7 @@
 
     .Chevron {
       display: inline-flex;
-      margin-left: auto;
+      margin-inline-start: auto;
       color: var(--foreground-softer);
     }
 

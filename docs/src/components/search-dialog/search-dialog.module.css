@@ -15,7 +15,7 @@
 
       .SearchInput {
         flex: 1;
-        min-width: 0;
+        min-inline-size: 0;
         font-size: var(--font-size-md);
         color: var(--foreground);
 
@@ -27,7 +27,7 @@
 
     &[data-populated] {
       .SearchBar {
-        border-bottom: var(--px) solid var(--rule);
+        border-block-end: var(--px) solid var(--rule);
       }
     }
   }

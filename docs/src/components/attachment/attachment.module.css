@@ -6,13 +6,13 @@
     --attachment-background-color: var(--surface-elevated);
 
     position: absolute;
-    top: 0;
-    left: 0;
+    inset-block-start: 0;
+    inset-inline-start: 0;
     display: flex;
-    min-width: var(--min-width);
-    max-width: var(--max-width);
-    min-height: var(--min-height);
-    max-height: var(--max-height);
+    min-inline-size: var(--min-width);
+    max-inline-size: var(--max-width);
+    min-block-size: var(--min-height);
+    max-block-size: var(--max-height);
     color: var(--foreground);
     opacity: 1;
     transform: translate(var(--x), var(--y));
@@ -38,8 +38,8 @@
     .Arrow {
       position: absolute;
       z-index: 2;
-      width: var(--arrow-size);
-      height: var(--arrow-size);
+      inline-size: var(--arrow-size);
+      block-size: var(--arrow-size);
       pointer-events: auto;
       background-color: var(--attachment-background-color);
       box-shadow: inset 0 0 0 var(--px) var(--ring);
@@ -63,8 +63,8 @@
 
     &[data-placement="bottom"] {
       .Arrow {
-        top: var(--arrow-overlap);
-        left: var(--arrow-offset);
+        inset-block-start: var(--arrow-overlap);
+        inset-inline-start: var(--arrow-offset);
         clip-path: polygon(0 0, 100% 0, 0 100%);
       }
 
@@ -83,8 +83,8 @@
 
     &[data-placement="top"] {
       .Arrow {
-        bottom: var(--arrow-overlap);
-        left: var(--arrow-offset);
+        inset-block-end: var(--arrow-overlap);
+        inset-inline-start: var(--arrow-offset);
         clip-path: polygon(100% 0, 100% 100%, 0 100%);
       }
 
@@ -103,8 +103,8 @@
 
     &[data-placement="right"] {
       .Arrow {
-        top: var(--arrow-offset);
-        left: var(--arrow-overlap);
+        inset-block-start: var(--arrow-offset);
+        inset-inline-start: var(--arrow-overlap);
         clip-path: polygon(0 0, 100% 100%, 0 100%);
       }
 
@@ -123,8 +123,8 @@
 
     &[data-placement="left"] {
       .Arrow {
-        top: var(--arrow-offset);
-        right: var(--arrow-overlap);
+        inset-block-start: var(--arrow-offset);
+        inset-inline-end: var(--arrow-overlap);
         clip-path: polygon(0 0, 100% 0, 100% 100%);
       }
 

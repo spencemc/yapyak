@@ -28,10 +28,10 @@
 
       .IndicatorBar {
         position: absolute;
-        top: 0;
-        left: 0;
-        width: var(--installation-wizard-group-indicator-width);
-        height: var(--installation-wizard-group-indicator-height);
+        inset-block-start: 0;
+        inset-inline-start: 0;
+        inline-size: var(--installation-wizard-group-indicator-width);
+        block-size: var(--installation-wizard-group-indicator-height);
         pointer-events: none;
         background-color: var(--surface-strong);
         border-radius: var(--border-radius-sm);

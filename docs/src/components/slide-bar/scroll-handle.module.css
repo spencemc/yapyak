@@ -4,12 +4,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    height: var(--scroll-handle-height, 24px);
+    inline-size: 100%;
+    block-size: var(--scroll-handle-height, 24px);
     color: var(--foreground-softer);
 
     &[data-placement="start"] {
-      top: 0;
+      inset-block-start: 0;
 
       .Chevron {
         transform: rotate(180deg);
@@ -17,7 +17,7 @@
     }
 
     &[data-placement="end"] {
-      bottom: 0;
+      inset-block-end: 0;
     }
   }
 }

@@ -29,11 +29,11 @@
 
       .Indicator {
         position: absolute;
-        top: 0;
-        left: 0;
+        inset-block-start: 0;
+        inset-inline-start: 0;
         display: none;
-        width: var(--px);
-        height: var(--indicator-height);
+        inline-size: var(--px);
+        block-size: var(--indicator-height);
         pointer-events: none;
         background-color: var(--brand);
         opacity: 0;
@@ -48,7 +48,7 @@
 
     &[data-indicator] {
       .Indicator {
-        left: calc((var(--spacing-4) + var(--px)) * -1);
+        inset-inline-start: calc((var(--spacing-4) + var(--px)) * -1);
         display: block;
       }
     }

@@ -30,7 +30,7 @@
 
     .GroupBar {
       position: relative;
-      width: 100%;
+      inline-size: 100%;
 
       :is(.GroupLink, .GroupToggle) {
         display: block;
@@ -68,13 +68,13 @@
 
       .ToggleButton {
         position: absolute;
-        top: 50%;
-        right: 0;
+        inset-block-start: 50%;
+        inset-inline-end: 0;
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 28px;
-        height: 28px;
+        inline-size: 28px;
+        block-size: 28px;
         color: var(--foreground-softer);
         outline: var(--spacing-2) solid transparent;
         outline-offset: calc(var(--px) * -1);
@@ -167,9 +167,9 @@
       }
 
       &:not([data-collapsible]):not(:first-child) {
-        padding-top: var(--spacing-5);
-        margin-top: var(--spacing-3);
-        border-top: var(--px) solid var(--rule);
+        padding-block-start: var(--spacing-5);
+        margin-block-start: var(--spacing-3);
+        border-block-start: var(--px) solid var(--rule);
       }
     }
 
@@ -177,7 +177,7 @@
       gap: 0;
 
       > .List {
-        padding-left: var(--spacing-2);
+        padding-inline-start: var(--spacing-2);
         font-size: var(--font-size-xs);
       }
     }
@@ -186,7 +186,7 @@
       gap: 0;
 
       > .List {
-        padding-left: var(--spacing-2);
+        padding-inline-start: var(--spacing-2);
       }
     }
   }

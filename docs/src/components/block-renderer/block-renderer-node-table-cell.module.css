@@ -4,10 +4,10 @@
     vertical-align: top;
     color: var(--foreground-soft);
     overflow-wrap: break-word;
-    border-right: var(--px) solid var(--rule);
+    border-inline-end: var(--px) solid var(--rule);
 
     &:last-child {
-      border-right: 0;
+      border-inline-end: 0;
     }
 
     &[data-header] {
@@ -17,7 +17,7 @@
       text-transform: uppercase;
       letter-spacing: var(--letter-spacing-wider);
       white-space: nowrap;
-      border-bottom: var(--px) solid var(--rule);
+      border-block-end: var(--px) solid var(--rule);
     }
 
     &[data-column="literal"] {

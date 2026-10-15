@@ -1,6 +1,6 @@
 @layer components {
   .BlockRendererNodeList {
-    padding-left: var(--spacing-5);
+    padding-inline-start: var(--spacing-5);
     list-style-position: outside;
 
     &:is(ul) {

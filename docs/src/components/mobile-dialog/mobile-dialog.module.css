@@ -6,7 +6,7 @@
     inset: var(--header-height) 0 0 0;
     display: flex;
     flex-direction: column;
-    padding-bottom: var(--keyboard-inset);
+    padding-block-end: var(--keyboard-inset);
     overflow: hidden;
     background-color: var(--canvas);
     transition: opacity var(--duration-medium) var(--ease-snappy);

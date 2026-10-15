@@ -25,7 +25,7 @@
       padding: var(--spacing-3) var(--spacing-4);
       font-family: var(--font-family-mono);
       font-size: var(--font-size-xs);
-      border-bottom: var(--px) solid var(--rule);
+      border-block-end: var(--px) solid var(--rule);
 
       .FlagIcon {
         display: inline-flex;
@@ -67,8 +67,8 @@
 
         .Skeleton {
           display: inline-block;
-          width: 128px;
-          height: 12px;
+          inline-size: 128px;
+          block-size: 12px;
           padding: 0 var(--px);
           margin-inline: var(--spacing-2);
           background-image: linear-gradient(
@@ -101,7 +101,7 @@
       }
 
       &:last-child {
-        border-bottom: none;
+        border-block-end: none;
       }
     }
 

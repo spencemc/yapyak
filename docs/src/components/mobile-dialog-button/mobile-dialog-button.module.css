@@ -5,8 +5,8 @@
     gap: 6px;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 44px;
+    inline-size: 44px;
+    block-size: 44px;
     color: var(--foreground-soft);
     outline: var(--spacing-2) solid transparent;
     outline-offset: calc(var(--px) * -1);
@@ -18,8 +18,8 @@
 
     .Line {
       display: block;
-      width: 20px;
-      height: var(--spacing-05);
+      inline-size: 20px;
+      block-size: var(--spacing-05);
       background-color: currentColor;
       border-radius: var(--border-radius-full);
       transition:

@@ -11,8 +11,8 @@
       flex: none;
       align-items: center;
       justify-content: center;
-      width: 44px;
-      height: 44px;
+      inline-size: 44px;
+      block-size: 44px;
       color: var(--foreground-soft);
       outline: var(--spacing-2) solid transparent;
       outline-offset: calc(var(--px) * -1);
@@ -45,7 +45,7 @@
       flex: 1;
       gap: var(--spacing-2);
       align-items: center;
-      min-width: 0;
+      min-inline-size: 0;
 
       .SearchIcon {
         flex: none;
@@ -54,7 +54,7 @@
 
       .SearchInput {
         flex: 1;
-        min-width: 0;
+        min-inline-size: 0;
         font-size: var(--font-size-md);
         color: var(--foreground);
 
@@ -66,8 +66,8 @@
 
     .Divider {
       align-self: center;
-      width: var(--px);
-      height: 24px;
+      inline-size: var(--px);
+      block-size: 24px;
       background-color: var(--rule);
     }
 
@@ -85,7 +85,7 @@
     display: flex;
     gap: var(--spacing-2);
     align-items: center;
-    min-width: 0;
+    min-inline-size: 0;
   }
 
   .TrailingBar {

@@ -1,6 +1,6 @@
 @layer components {
   .BlockRendererNodeTable {
-    width: 100%;
+    inline-size: 100%;
     overflow-x: auto;
     scrollbar-color: var(--ring-stronger) transparent;
     scrollbar-width: thin;
@@ -9,7 +9,7 @@
     box-shadow: var(--shadow-ring-inset);
 
     .Table {
-      width: 100%;
+      inline-size: 100%;
       font-size: var(--font-size-sm);
       border-collapse: collapse;
     }

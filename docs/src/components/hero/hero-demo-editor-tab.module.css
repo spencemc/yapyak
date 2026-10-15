@@ -6,7 +6,7 @@
     gap: var(--spacing-1);
     align-items: center;
     justify-content: center;
-    min-width: 0;
+    min-inline-size: 0;
     padding: var(--spacing-2) var(--spacing-1);
     font-family: var(--font-family-mono);
     font-size: var(--font-size-xs);
@@ -22,7 +22,7 @@
     .TabFill {
       position: absolute;
       inset: 0;
-      right: var(--px);
+      inset-inline-end: var(--px);
       z-index: -1;
       pointer-events: none;
       background-color: transparent;
@@ -41,8 +41,8 @@
     }
 
     .TabDot {
-      width: 6px;
-      height: 6px;
+      inline-size: 6px;
+      block-size: 6px;
       border-radius: 50%;
     }
 
@@ -118,18 +118,18 @@
     }
 
     &:first-of-type {
-      border-top-left-radius: var(--border-radius-md);
+      border-start-start-radius: var(--border-radius-md);
 
       .TabFill {
-        border-top-left-radius: var(--border-radius-md);
+        border-start-start-radius: var(--border-radius-md);
       }
     }
 
     &:last-of-type {
-      border-top-right-radius: var(--border-radius-md);
+      border-start-end-radius: var(--border-radius-md);
 
       .TabFill {
-        border-top-right-radius: var(--border-radius-md);
+        border-start-end-radius: var(--border-radius-md);
       }
     }
   }

@@ -4,12 +4,12 @@
     flex-direction: column;
     gap: var(--spacing-6);
     align-items: center;
-    max-width: 640px;
+    max-inline-size: 640px;
     text-align: center;
 
     .BubbleImage {
-      width: 72px;
-      height: 72px;
+      inline-size: 72px;
+      block-size: 72px;
 
       .BrandFill {
         fill: var(--brand);
@@ -25,7 +25,7 @@
     }
 
     .LicenseParagraph {
-      padding-top: var(--spacing-2);
+      padding-block-start: var(--spacing-2);
       font-size: var(--font-size-xs);
       color: var(--foreground-softer);
     }

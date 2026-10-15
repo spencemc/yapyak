@@ -2,6 +2,6 @@
   .Menu {
     display: flex;
     flex-direction: column;
-    min-width: 140px;
+    min-inline-size: 140px;
   }
 }

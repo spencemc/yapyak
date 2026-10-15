@@ -9,7 +9,7 @@ html {
 }
 
 body {
-  min-height: 100vh;
+  min-block-size: 100vh;
   overflow-x: clip;
   font-family: system-ui;
   font-size: var(--font-size-md);

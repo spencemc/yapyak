@@ -6,15 +6,15 @@
     );
 
     position: absolute;
-    top: var(--code-block-copy-button-inset);
-    right: var(--code-block-copy-button-inset);
+    inset-block-start: var(--code-block-copy-button-inset);
+    inset-inline-end: var(--code-block-copy-button-inset);
     z-index: 1;
 
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
+    inline-size: 32px;
+    block-size: 32px;
     color: var(--foreground-soft);
     outline: var(--spacing-2) solid transparent;
     outline-offset: calc(var(--px) * -1);
@@ -31,17 +31,17 @@
       position: relative;
       display: grid;
       place-items: center;
-      width: 14px;
-      height: 14px;
+      inline-size: 14px;
+      block-size: 14px;
 
       :is(.IdleIcon, .CopiedIcon) {
         position: absolute;
-        top: 0;
-        left: 0;
+        inset-block-start: 0;
+        inset-inline-start: 0;
         display: grid;
         place-items: center;
-        width: 100%;
-        height: 100%;
+        inline-size: 100%;
+        block-size: 100%;
         transition:
           opacity var(--transition),
           transform var(--transition);
@@ -55,8 +55,8 @@
 
     .Announcer {
       position: absolute;
-      width: 1px;
-      height: 1px;
+      inline-size: 1px;
+      block-size: 1px;
       margin: -1px;
       overflow: hidden;
       white-space: nowrap;

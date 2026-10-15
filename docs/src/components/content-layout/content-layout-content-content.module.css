@@ -7,8 +7,8 @@
     }
 
     @media (min-width: 1324px) {
-      width: 100%;
-      max-width: 784px;
+      inline-size: 100%;
+      max-inline-size: 784px;
       margin-inline: auto;
     }
   }

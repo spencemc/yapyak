@@ -11,8 +11,8 @@
       outline var(--duration-slow);
 
     .Wordmark {
-      width: 92px;
-      height: auto;
+      inline-size: 92px;
+      block-size: auto;
 
       .BrandFill {
         fill: var(--brand);

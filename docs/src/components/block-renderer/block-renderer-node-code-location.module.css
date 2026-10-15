@@ -2,11 +2,11 @@
   .BlockRendererNodeCodeLocation {
     display: inline-block;
     align-self: flex-start;
-    padding-top: var(--spacing-4);
+    padding-block-start: var(--spacing-4);
     font-family: var(--font-family-mono);
     font-size: var(--font-size-xs);
     color: var(--foreground-softer);
-    border-top: var(--px) solid var(--rule);
+    border-block-start: var(--px) solid var(--rule);
     transition: color var(--transition);
 
     @media (hover: hover) {

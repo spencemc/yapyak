@@ -16,11 +16,11 @@
       font-weight: var(--font-weight-medium);
       color: var(--foreground-soft);
       letter-spacing: var(--letter-spacing-tight);
-      border-bottom: var(--px) solid var(--rule);
+      border-block-end: var(--px) solid var(--rule);
       transition: color var(--transition);
 
       &:last-child {
-        border-bottom: none;
+        border-block-end: none;
       }
 
       @media (hover: hover) {

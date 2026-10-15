@@ -14,7 +14,7 @@
       display: flex;
       gap: var(--spacing-3);
       align-items: center;
-      width: 100%;
+      inline-size: 100%;
       padding: var(--spacing-2) var(--spacing-3);
       font-size: var(--font-size-sm);
       font-weight: var(--font-weight-medium);
@@ -37,7 +37,7 @@
         flex: 1;
         flex-direction: column;
         gap: var(--spacing-05);
-        min-width: 0;
+        min-inline-size: 0;
 
         .BreadcrumbText {
           overflow: hidden;
