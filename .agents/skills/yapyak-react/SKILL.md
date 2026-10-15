@@ -874,15 +874,17 @@ The ref is synced in a separate effect (runs after commit) — never written dur
 
 ### Refs
 
-**DOM element refs** — root is always named `element`. Child element refs are named `[child]Element`. Never suffix with `Ref`:
+Every ref ends with `Ref`; `useReactNamingConvention` enforces it.
+
+**DOM element refs** — root is always named `elementRef`. Child element refs are named `[child]ElementRef`:
 
 ```ts
-const element = useRef<HTMLDivElement>(null);
-const linkElement = useRef<HTMLAnchorElement>(null);
-const activeElement = useRef<HTMLElement>(null);
+const elementRef = useRef<HTMLDivElement>(null);
+const linkElementRef = useRef<HTMLAnchorElement>(null);
+const activeElementRef = useRef<HTMLElement>(null);
 ```
 
-**All other refs** (values, callbacks, timers, flags) — always suffix with `Ref`:
+**All other refs** (values, callbacks, timers, flags) — `[what]Ref`:
 
 ```ts
 const delayRef = useRef(delay);
@@ -891,13 +893,15 @@ const timerRef = useRef<number>(undefined);
 const hasRevealedRef = useRef(false);
 ```
 
+**`RefOrValue` props** — a prop that accepts a ref or a value is named for the value, never with `Ref`: `element`, `targetElement`. Map the ref explicitly when passing one: `targetElement: targetElementRef`.
+
 ### `$`-prefix for ref extractions
 
 `$`-prefix is reserved for ref extractions — values pulled from `.current`. It marks "this is the live value of a ref at this moment".
 
 ```ts
 // ✓ Ref extraction
-const $element = element.current;
+const $element = elementRef.current;
 const $onChange = onChangeRef.current;
 
 // ✗ Plain DOM lookup — no ref involved

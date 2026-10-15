@@ -103,6 +103,7 @@
         "useExhaustiveSwitchCases": "error",
         "useImportsFirst": "error",
         "usePromiseRejectErrors": "error",
+        "useReactNamingConvention": "error",
         "useSortedClasses": "error",
         "useTestHooksInOrder": "error",
         "useTestHooksOnTop": "error"
