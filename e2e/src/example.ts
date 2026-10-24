@@ -1,7 +1,3 @@
-import type { ExampleOptions } from './src/test';
-
-import { defineConfig, devices } from '@playwright/test';
-
 import { fileURLToPath } from 'node:url';
 
 type Mode = 'dev' | 'prod';
@@ -14,24 +10,24 @@ type SaveLoop = {
   ssrHtml: boolean;
 };
 
-type Example = {
+export type Example = {
   name: string;
-  persistence: ExampleOptions['persistence'];
+  persistence: 'cookie' | 'local-storage' | 'url';
   port: number;
   saveLoop?: SaveLoop;
   serve: 'preview' | 'start';
   switchLocaleOnServer: boolean;
 };
 
-const IS_CI = process.env.CI !== undefined;
-
 const MODE: Mode = process.env.YAPYAK_E2E_MODE === 'prod' ? 'prod' : 'dev';
+
+export const IS_PROD = MODE === 'prod';
 
 const PROD_PORT_OFFSET = 100;
 
-const SANDBOX_PORT = 5320;
+export const SANDBOX_PORT = 5320;
 
-const EXAMPLES: Example[] = [
+export const EXAMPLES: Example[] = [
   {
     name: 'astro-cookie',
     persistence: 'cookie',
@@ -238,110 +234,16 @@ const EXAMPLES: Example[] = [
   },
 ];
 
-function resolvePort(example: Example): number {
-  return MODE === 'prod' ? example.port + PROD_PORT_OFFSET : example.port;
+export function resolvePort(example: Example): number {
+  return IS_PROD ? example.port + PROD_PORT_OFFSET : example.port;
 }
 
-function toExamplePath(example: Example, relativePath: string): string {
+export function toBaseURL(port: number): string {
+  return `http://localhost:${port}`;
+}
+
+export function toExamplePath(example: Example, relativePath: string): string {
   return fileURLToPath(
-    new URL(`../examples/${example.name}/${relativePath}`, import.meta.url),
+    new URL(`../../examples/${example.name}/${relativePath}`, import.meta.url),
   );
 }
-
-function resolveCommand(example: Example): string {
-  const run = `pnpm --filter @yapyak-examples/${example.name}`;
-  if (MODE === 'dev') {
-    return `${run} dev --port ${resolvePort(example)}`;
-  }
-  if (example.serve === 'start') {
-    return `PORT=${resolvePort(example)} ${run} start`;
-  }
-  return `${run} preview --port ${resolvePort(example)}`;
-}
-
-export default defineConfig<ExampleOptions>({
-  forbidOnly: IS_CI,
-  projects: [
-    ...EXAMPLES.map((example) => ({
-      name: example.name,
-      testMatch: 'example.spec.ts',
-      use: {
-        ...devices['Desktop Chrome'],
-        baseURL: `http://localhost:${resolvePort(example)}`,
-        persistence: example.persistence,
-        switchLocaleOnServer: example.switchLocaleOnServer,
-      },
-    })),
-    ...(MODE === 'dev'
-      ? EXAMPLES.flatMap((example) =>
-          example.saveLoop === undefined
-            ? []
-            : [
-                {
-                  dependencies: [
-                    example.name,
-                  ],
-                  name: `${example.name}-save-loop`,
-                  testMatch: 'example-save-loop.spec.ts',
-                  use: {
-                    ...devices['Desktop Chrome'],
-                    allowHydrationMismatch: true,
-                    baseURL: `http://localhost:${resolvePort(example)}`,
-                    catalogFileId: example.saveLoop.fileId,
-                    catalogPath: toExamplePath(example, 'locales/sv.json'),
-                    persistence: example.persistence,
-                    sourceAnchor: example.saveLoop.sourceAnchor,
-                    sourceInsertion: example.saveLoop.sourceInsertion,
-                    sourcePath: toExamplePath(
-                      example,
-                      example.saveLoop.sourcePath,
-                    ),
-                    ssrHtml: example.saveLoop.ssrHtml,
-                    switchLocaleOnServer: example.switchLocaleOnServer,
-                  },
-                },
-              ],
-        )
-      : []),
-    ...(MODE === 'dev'
-      ? [
-          {
-            name: 'sandbox',
-            testMatch: 'save-loop.spec.ts',
-            use: {
-              ...devices['Desktop Chrome'],
-              baseURL: `http://localhost:${SANDBOX_PORT}`,
-            },
-          },
-        ]
-      : []),
-  ],
-  retries: IS_CI ? 2 : 0,
-  testDir: './src',
-  use: {
-    timezoneId: 'Europe/Stockholm',
-    trace: 'on-first-retry',
-  },
-  webServer: [
-    ...EXAMPLES.map((example) => ({
-      command: resolveCommand(example),
-      env: {
-        ASTRO_DEV_BACKGROUND: '1',
-        ASTRO_PREVIEW_BACKGROUND: '1',
-        TZ: 'Europe/Stockholm',
-      },
-      port: resolvePort(example),
-    })),
-    ...(MODE === 'dev'
-      ? [
-          {
-            command: `pnpm --filter @yapyak/e2e-sandbox reset && pnpm --filter @yapyak/e2e-sandbox dev --port ${SANDBOX_PORT}`,
-            env: {
-              TZ: 'Europe/Stockholm',
-            },
-            port: SANDBOX_PORT,
-          },
-        ]
-      : []),
-  ],
-});

@@ -28,7 +28,7 @@ pnpm test       # all unit tests
 
 ## End-to-end tests
 
-Playwright drives every example app and the save-loop sandbox. Install its browser once:
+Vitest drives every example app and the save-loop sandbox in Chromium through the Playwright library. Install the browser once:
 
 ```bash
 pnpm --filter @yapyak/e2e exec playwright install --with-deps chromium

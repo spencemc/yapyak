@@ -54,7 +54,7 @@ Files that do **NOT** get unit tests:
 
 | Host | Runner | Specs live in | Runs |
 | --- | --- | --- | --- |
-| Browser | Playwright | `e2e/src` | `pnpm e2e:dev`, `pnpm e2e:prod` |
+| Browser | Vitest + the `playwright` library | `e2e/src` | `pnpm e2e:dev`, `pnpm e2e:prod` |
 | VS Code extension host | `@vscode/test-cli` | `packages/vscode/e2e` | `pnpm --filter @yapyak/vscode test:e2e` |
 
 - `test` names draw from the Yap List; fixtures draw from the Yak Pool.

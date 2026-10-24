@@ -1,5 +1,8 @@
-import type { Locator, Page } from '@playwright/test';
+import type { Locator, Page } from 'playwright';
 
+import { describe } from 'vitest';
+
+import { EXAMPLES, resolvePort, toBaseURL } from './example';
 import { expect, test } from './test';
 
 const CONTENT: Record<
@@ -165,79 +168,79 @@ const CONTENT: Record<
   },
 };
 
-test('renders English content for the default locale', async ({ page }) => {
-  await page.goto('/');
+describe.for(EXAMPLES)('$name', (example) => {
+  test.override({
+    baseURL: toBaseURL(resolvePort(example)),
+  });
 
-  await validateContent(page, 'en');
-});
+  test('renders English content for the default locale', async ({ page }) => {
+    await page.goto('/');
 
-test('renders Swedish content when Swedish is clicked', async ({
-  page,
-  persistence,
-}) => {
-  await page.goto('/');
-  await setSwedishLocale(
-    page,
-    page
-      .getByRole(persistence === 'url' ? 'link' : 'button', {
-        name: 'svenska',
-      })
-      .first(),
+    await validateContent(page, 'en');
+  });
+
+  test('renders Swedish content when Swedish is clicked', async ({ page }) => {
+    await page.goto('/');
+    await setSwedishLocale(
+      page,
+      page
+        .getByRole(example.persistence === 'url' ? 'link' : 'button', {
+          name: 'svenska',
+        })
+        .first(),
+    );
+
+    await validateContent(page, 'sv');
+  });
+
+  test.skipIf(example.persistence === 'url')(
+    'preserves the locale when the page reloads',
+    async ({ page }) => {
+      await page.goto('/');
+      await setSwedishLocale(
+        page,
+        page
+          .getByRole('button', {
+            name: 'svenska',
+          })
+          .first(),
+      );
+      await page.reload();
+
+      await expect(
+        page.getByRole('heading', {
+          level: 1,
+        }),
+      ).toHaveText('Hej där');
+    },
   );
 
-  await validateContent(page, 'sv');
-});
+  test.skipIf(!example.switchLocaleOnServer)(
+    'renders Swedish content when the server switch is clicked',
+    async ({ page }) => {
+      await page.goto('/');
+      await setSwedishLocale(
+        page,
+        page
+          .getByRole('button', {
+            name: 'svenska',
+          })
+          .last(),
+      );
 
-test('preserves the locale when the page reloads', async ({
-  page,
-  persistence,
-}) => {
-  test.skip(persistence === 'url');
-
-  await page.goto('/');
-  await setSwedishLocale(
-    page,
-    page
-      .getByRole('button', {
-        name: 'svenska',
-      })
-      .first(),
-  );
-  await page.reload();
-
-  await expect(
-    page.getByRole('heading', {
-      level: 1,
-    }),
-  ).toHaveText('Hej där');
-});
-
-test('renders Swedish content when the server switch is clicked', async ({
-  page,
-  switchLocaleOnServer,
-}) => {
-  test.skip(!switchLocaleOnServer);
-
-  await page.goto('/');
-  await setSwedishLocale(
-    page,
-    page
-      .getByRole('button', {
-        name: 'svenska',
-      })
-      .last(),
+      await expect(page.locator('html')).toHaveAttribute('lang', 'sv');
+      await expect(page.locator('html')).toHaveAttribute('dir', 'ltr');
+    },
   );
 
-  await expect(page.locator('html')).toHaveAttribute('lang', 'sv');
-  await expect(page.locator('html')).toHaveAttribute('dir', 'ltr');
-});
+  test.skipIf(example.persistence !== 'url')(
+    'renders Swedish content for `/sv`',
+    async ({ page }) => {
+      await page.goto('/sv');
 
-test('renders Swedish content for `/sv`', async ({ page, persistence }) => {
-  test.skip(persistence !== 'url');
-
-  await page.goto('/sv');
-
-  await validateContent(page, 'sv');
+      await validateContent(page, 'sv');
+    },
+  );
 });
 
 async function validateContent(page: Page, locale: 'en' | 'sv'): Promise<void> {

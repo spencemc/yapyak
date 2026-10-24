@@ -11,7 +11,7 @@
 - `packages/{typescript-config,tsdown-config,vitest-config}/` — shared build/test config
 - `docs/` — `@yapyak/docs`, Vite + TanStack Start app; `docs/compiler/` is `@yapyak/docs-compiler`, its doc-compilation tooling
 - `examples/*` — minimal demos named by their stack
-- `e2e/` — `@yapyak/e2e`, Playwright end-to-end tests for the example apps and the save loop (`pnpm e2e:dev`, `pnpm e2e:prod`); `e2e/sandbox/` is the mutable fixture app the save-loop tests write to
+- `e2e/` — `@yapyak/e2e`, end-to-end tests for the example apps and the save loop — Vitest driving Chromium through the `playwright` library (`pnpm e2e:dev`, `pnpm e2e:prod`); `e2e/sandbox/` is the mutable fixture app the save-loop tests write to
 
 ## Architecture invariants
 

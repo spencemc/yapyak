@@ -1,41 +1,97 @@
-import { test as base, expect } from '@playwright/test';
+import type {
+  Browser,
+  BrowserContext,
+  BrowserContextOptions,
+  Page,
+} from 'playwright';
 
-export type ExampleOptions = {
-  allowHydrationMismatch: boolean;
-  catalogFileId: string;
-  catalogPath: string;
-  persistence: 'cookie' | 'local-storage' | 'url';
-  sourceAnchor: string;
-  sourceInsertion: string;
-  sourcePath: string;
-  ssrHtml: boolean;
-  switchLocaleOnServer: boolean;
+import { chromium, devices } from 'playwright';
+import { test as base } from 'vitest';
+
+import { IS_PROD } from './example';
+import { expect } from './expect';
+import { fileURLToPath } from 'node:url';
+
+type Fixtures = {
+  $file: {
+    browser: Browser;
+  };
+  $test: {
+    allowHydrationMismatch: boolean;
+    baseURL: string;
+    context: BrowserContext;
+    page: Page;
+  };
 };
 
-const IS_PROD = process.env.YAPYAK_E2E_MODE === 'prod';
+// The context defaults `@playwright/test` applies on top of the library's.
+const CONTEXT_DEFAULTS: BrowserContextOptions = {
+  acceptDownloads: true,
+  colorScheme: 'light',
+  contrast: 'no-preference',
+  forcedColors: 'none',
+  locale: 'en-US',
+  reducedMotion: 'no-preference',
+  serviceWorkers: 'allow',
+};
 
 const HYDRATION_MISMATCH_PREFIX = 'Hydration failed';
 
-export const test = base.extend<ExampleOptions>({
-  allowHydrationMismatch: [
-    false,
+const TEST_RESULTS_URL = new URL('../test-results/', import.meta.url);
+
+function toTracePath(name: string): string {
+  const slug = name.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '');
+  return fileURLToPath(new URL(`${slug}/trace.zip`, TEST_RESULTS_URL));
+}
+
+export const test = base.extend<Fixtures>({
+  allowHydrationMismatch: false,
+  baseURL: '',
+  browser: [
+    // biome-ignore lint/correctness/noEmptyPattern: yap yap yap
+    async ({}, use) => {
+      const browser = await chromium.launch({
+        handleSIGINT: false,
+      });
+      await use(browser);
+      await browser.close();
+    },
     {
-      option: true,
+      scope: 'file',
     },
   ],
-  catalogFileId: [
-    '',
-    {
-      option: true,
-    },
-  ],
-  catalogPath: [
-    '',
-    {
-      option: true,
-    },
-  ],
-  page: async ({ allowHydrationMismatch, page }, use) => {
+  context: async ({ baseURL, browser, task }, use) => {
+    if (baseURL === '') {
+      throw new Error('baseURL is required');
+    }
+    const context = await browser.newContext({
+      ...CONTEXT_DEFAULTS,
+      ...devices['Desktop Chrome'],
+      baseURL,
+      timezoneId: 'Europe/Stockholm',
+    });
+    // Mirrors Playwright's `trace: 'on-first-retry'`.
+    const isFirstRetry = task.result?.retryCount === 1;
+    if (isFirstRetry) {
+      await context.tracing.start({
+        screenshots: true,
+        snapshots: true,
+        sources: true,
+      });
+    }
+    try {
+      await use(context);
+    } finally {
+      if (isFirstRetry) {
+        await context.tracing.stop({
+          path: toTracePath(task.fullName),
+        });
+      }
+      await context.close();
+    }
+  },
+  page: async ({ allowHydrationMismatch, context }, use) => {
+    const page = await context.newPage();
     const errors: string[] = [];
     const record = (text: string): void => {
       if (
@@ -61,42 +117,6 @@ export const test = base.extend<ExampleOptions>({
     await use(page);
     expect(errors).toEqual([]);
   },
-  persistence: [
-    'local-storage',
-    {
-      option: true,
-    },
-  ],
-  sourceAnchor: [
-    '',
-    {
-      option: true,
-    },
-  ],
-  sourceInsertion: [
-    '',
-    {
-      option: true,
-    },
-  ],
-  sourcePath: [
-    '',
-    {
-      option: true,
-    },
-  ],
-  ssrHtml: [
-    false,
-    {
-      option: true,
-    },
-  ],
-  switchLocaleOnServer: [
-    false,
-    {
-      option: true,
-    },
-  ],
 });
 
 export { expect };

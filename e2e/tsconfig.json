@@ -8,7 +8,7 @@
   },
   "extends": "@yapyak/typescript-config/library",
   "include": [
-    "playwright.config.ts",
+    "vitest.config.ts",
     "src"
   ]
 }

@@ -1,3 +1,4 @@
+import { SANDBOX_PORT, toBaseURL } from './example';
 import { expect, test } from './test';
 import { execFile } from 'node:child_process';
 import { copyFile, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
@@ -44,6 +45,10 @@ const BASELINE: Catalog = {
 
 const SETTLE_TIMEOUT = 1000;
 const SETTLE_INTERVAL = 100;
+
+test.override({
+  baseURL: toBaseURL(SANDBOX_PORT),
+});
 
 test.beforeEach(async ({ page }) => {
   await resetSandbox();
@@ -192,30 +197,29 @@ test('renders a component called as a function a growing number of times', async
   await expect(rows).toHaveCount(2);
 });
 
-test.fail(
-  'preserves an uncontrolled input value when the source is saved',
-  async ({ page }) => {
-    await writeApp((template) =>
-      template
-        .replace(/<input[\s\S]*?\/>/, '<input />')
-        .replace('<input />', "<input />\n      <p>{t('Cancel')}</p>"),
-    );
-    await expect(page.getByText('Cancel')).toBeVisible();
+test.fails('preserves an uncontrolled input value when the source is saved', async ({
+  page,
+}) => {
+  await writeApp((template) =>
+    template
+      .replace(/<input[\s\S]*?\/>/, '<input />')
+      .replace('<input />', "<input />\n      <p>{t('Cancel')}</p>"),
+  );
+  await expect(page.getByText('Cancel')).toBeVisible();
 
-    await page.getByRole('textbox').fill('World');
-    await writeApp((template) =>
-      template
-        .replace(/<input[\s\S]*?\/>/, '<input />')
-        .replace(
-          '<input />',
-          "<input />\n      <p>{t('Cancel')}</p>\n      <p>{t('Save changes')}</p>",
-        ),
-    );
+  await page.getByRole('textbox').fill('World');
+  await writeApp((template) =>
+    template
+      .replace(/<input[\s\S]*?\/>/, '<input />')
+      .replace(
+        '<input />',
+        "<input />\n      <p>{t('Cancel')}</p>\n      <p>{t('Save changes')}</p>",
+      ),
+  );
 
-    await expect(page.getByText('Save changes')).toBeVisible();
-    await expect(page.getByRole('textbox')).toHaveValue('World');
-  },
-);
+  await expect(page.getByText('Save changes')).toBeVisible();
+  await expect(page.getByRole('textbox')).toHaveValue('World');
+});
 
 test('falls back to the source string until the translation arrives', async ({
   page,

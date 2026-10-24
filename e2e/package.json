@@ -6,15 +6,16 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "test:dev": "pnpm --filter @yapyak-examples/astro-cookie exec astro dev stop && playwright test",
-    "test:prod": "YAPYAK_E2E_MODE=prod playwright test",
+    "test:dev": "pnpm --filter @yapyak-examples/astro-cookie exec astro dev stop && vitest --run",
+    "test:prod": "YAPYAK_E2E_MODE=prod vitest --run",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "@playwright/test": "catalog:",
     "@types/node": "catalog:",
     "@yapyak/typescript-config": "workspace:*",
-    "typescript": "catalog:"
+    "playwright": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   },
   "engines": {
     "node": ">=22.22"
